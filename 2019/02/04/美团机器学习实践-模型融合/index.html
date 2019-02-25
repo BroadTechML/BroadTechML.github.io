@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang=zh>
+  <head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="description" content="BroadTech machine learning blog">
+  <meta name="keywords" content="MachineLearning, DeepLearning, BigData">
+  
+    <link rel="icon" href="/img/favicon.ico">
+  
+    
+  <title>模型融合 | Broadtech</title>
+  <link rel="stylesheet" href="/style.css">
+  <link rel="stylesheet" href="/lib/jquery.fancybox.min.css">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body>
+  <header>
+  <div class="header-container">
+    <a class="logo" href="/">
+      <span>Broadtech</span>
+    </a>
+    <ul class="right-header">
+      
+        <li class="nav-item">
+          
+            <a href="/" class="item-link">首页</a>
+          
+        </li>
+      
+        <li class="nav-item">
+          
+            <a href="/about" class="item-link">关于</a>
+          
+        </li>
+      
+        <li class="nav-item">
+          
+            <a href="/archives" class="item-link">归档</a>
+          
+        </li>
+      
+        <li class="nav-item">
+          
+            <a href="/tags" class="item-link">标签</a>
+          
+        </li>
+      
+    </ul>
+  </div>
+</header>
+
+  <main id="post">
+  <div class="content">
+    <article>
+        <section class="content markdown-body">
+          <h1>模型融合</h1>
+          <div class="post-meta">
+            <i class="fa fa-calendar" aria-hidden="true"></i> <time>2019/02/04</time>
+            
+            
+              | 
+                  <i class="fa fa-tag" aria-hidden="true"></i>
+                
+               
+  <a href="/tags/#MachineLearning" class="tag">MachineLearning</a>
+
+
+            
+          </div>
+          <p>模型融合通过构建并融合多个模型来完成学习任务，也称多分类器系统或基于委员会的学习。</p>
+<p><img src="/assets/imgs/1541642172900.png" alt="img"></p>
+<p>模型融合主要包含两个阶段：构建若干单模型和模型融合。单模型通常由基本的学习算法在训练集上学习得到，也称为基学习器、个体学习器或者组件学习器。如果模型融合使用的单模型属于一类学习算法，称为同质模型融合；反之则称为异质模型融合。模型融合阶段可选择多种融合方法，如平均法、投票法以及学习法等。多个融合模型还可以进行二阶融合甚至多阶融合。通常情况下，融合模型的泛化能力要比单模型强得多。</p>
+<ul>
+<li>融合收益</li>
+</ul>
+<p>从统计的角度看，机器学习的任务可以视为寻找一个最佳的假设空间。找出多个能够达到同等性能的假设空间，通过融合的方式来平均这些模型的预测结果，可以降低模型预测错误的风险。</p>
+<p>从计算的角度看，许多学习算法采用局部搜索的方式来寻找最佳参数，但是这样很容易陷入局部最优的情况。模型融合可以看作对同一份训练集、从很多不同的起始点进行局部搜索，然后结合起来，可以降低陷入糟糕的局部最优的风险。</p>
+<p>从表示的角度看，理论上理想的学习算法可以表示所有可能的分类，例如神经网络和决策树。但是在实际应用中，能够用于训练的数据是有限的，有些学习任务的真实假设可能不在当前学习算法所考虑到的假设空间中，此时如果使用单模型肯定无效。模型融合可以使假设空间扩大，从而使得这些学习任务可能得到正确的表示。</p>
+<p><img src="/assets/imgs/1541655561033.png" alt="img"></p>
+<ul>
+<li>模型误差-分歧分解</li>
+</ul>
+<p>模型多样性是指单模型之间的差异。单模型差异性越大，融合效果越好。在模型融合中，单模型应该好而不同。</p>
+<p>假设使用单模型$h_1, h_2, …, h_r$通过加权平均的方法融合来完成学习任务，$f:\R^d\rightarrow\R$，如下所示：</p>
+<script type="math/tex; mode=display">
+H(x)=\sum \limits_{i=1}^{T}w_ih_i(x)</script><p>对于样本$x$，定义单模型$h_i$的分歧为：</p>
+<script type="math/tex; mode=display">
+A(h_i|x)=(h_i(x)-H(x))^2</script><p>那么融合的分歧为：</p>
+<script type="math/tex; mode=display">
+\overline{A}(h|x)=\sum \limits_{i=1}^{T}w_iA(h_i|x)=\sum \limits_{i=1}^{T}w_i(h(x)-H(x))^2</script><p>单模型和融合模型的平方误差分别为：</p>
+<script type="math/tex; mode=display">
+E(h_i|x)=(f(x)-h_i(x))^2 \\
+E(H|x)=(f(x)-H(x))^2</script><p>令</p>
+<script type="math/tex; mode=display">
+\overline E(h|x)=\sum \limits_{i=1}^{T}w_iE(h_i|x)</script><p>表示单模型学习误差的加权平均值，则有</p>
+<script type="math/tex; mode=display">
+\overline A(h|x)=\sum \limits_{i=1}^{T}w_iE(h_i|x)-E(H|x)=\overline E(h|x)-E(H|x)</script><p>有</p>
+<script type="math/tex; mode=display">
+\sum \limits_{i=1}^Tw_i\int A(h_i|x)p(x)dx=
+\sum \limits _{i=1}^T w_i \int E(h_i|x)p(x)dx-\int E(H|x)p(x)dx</script><p>类似地，$h_i$在全样本上的泛化误差和分歧项分别为</p>
+<script type="math/tex; mode=display">
+E_i=\int E(h_i \ | \ x)p(x)dx\\
+A_i=\int A(h_i \ | \ x)p(x)dx</script><p>融合的泛化误差为</p>
+<script type="math/tex; mode=display">
+E = \int E(H|x)p(x)d(x)</script><p>令$\overline E=\sum<em>{i=1}^Tw_iE_i$表示个体学习期泛化误差的加权平均值，$\overline A=\sum</em>{i=1}^Tw_iA_i$表示个体学习器的加权分歧值，则有误差-分歧分解</p>
+<script type="math/tex; mode=display">
+E=\overline E-\overline A</script><p>上式表明单模型准确性越高（泛化误差越小），多样性越大（分歧值越大）则融合模型的表现越好（泛化误差越小）。</p>
+<ul>
+<li>模型多样性度量</li>
+</ul>
+<p>模型多样性度量是指度量模型融合中单模型的多样性。总体上，模型多样性度量主要分为承兑的多样性和非成对的多样性度量。</p>
+<p>首先，假设二分类任务有$m$个样本，分类器$h_j$和分类器$h_i$对样本的预测结果组合情况如下：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center"></th>
+<th style="text-align:center">$h_i$=1</th>
+<th style="text-align:center">$h_i$=0</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">$h_j=1$</td>
+<td style="text-align:center">a</td>
+<td style="text-align:center">c</td>
+</tr>
+<tr>
+<td style="text-align:center">$h_j=0$</td>
+<td style="text-align:center">b</td>
+<td style="text-align:center">d</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>成对多样性度量主要有以下参数：</p>
+<p>不一致度量：$dis_{i, j}=\frac{b+c}{m}$</p>
+<p>相关系数：$\rho_{ij}=\frac{ad-bc}{\sqrt{(a+b)(a+c)(c+d)(b+d)}}$</p>
+<p>Q统计：$Q_{ij}=\frac{ad-bc}{ad+bc}$</p>
+<p>K统计：$K=\frac{p_1-p_2}{1-p_2}$，$p_1=\frac{a+d}{m}$,$p_2=\frac{(a+b)(a+c)+(c+d)(b+d)}{m^2}$</p>
+<p>双次失败度量：$df<em>{ij}=\frac{\sum</em>{k=1}^m\prod(h_i(x_k)\ne y_k)\bigwedge h_j(x_k)\ne y_k}{m}$</p>
+<p>非成对多样性度量主要有以下参数：</p>
+<p>KW差异：$KW=\frac{1}{mT^2}\sum \limits_{k=1}^ml(x_k)(T-l(x_k))$</p>
+<p>$\kappa$度量（或评判一致性度量）：</p>
+<script type="math/tex; mode=display">
+\kappa = 1-\frac{1}{(T-1)\overline p(1-\overline p)}KW</script><script type="math/tex; mode=display">
+\overline p=\frac{1}{mT}\sum \limits_{i=1}^{T}\sum \limits_{k=1}^{m}\prod (h_i(x_k)=y_k)</script><p>熵度量：</p>
+<script type="math/tex; mode=display">
+Ent_{cc}=\frac{1}{m}\sum \limits_{k=1}^{m}\sum \limits_{y\in{-1, +1}}-P(y|x_k)logP(y|x_k)\\
+P(y|x_k)=\frac{1}{T}\sum \limits_{i=1}^T\prod(h_i(x_k)=y_k)</script><p>另外还有难点度量以及广义多样性度量等</p>
+<ul>
+<li>多样性增强</li>
+</ul>
+<p>应该尽可能有效地生成多样性大的单模型。一般增强多样性的思路是在学习过程中引入随机性，常见做法是对数据样本、输入属性、输出表示、和算法参数等进行扰动。</p>
+<ol>
+<li>数据样本扰动：给定初始数据集，产生不同的数据子集，训练单模型。</li>
+<li>输入属性扰动：使用不同的特征子空间训练单模型。</li>
+<li>输出表示扰动：对输出表示进行操纵以增强多样性。将都分类任务转换为多个二分类任务来训练单模型；翻转法随机改变训练样本标记；输出调制法将分类输出转换为回归输出来训练单模型。</li>
+<li>算法参数扰动：模型训练一般都需要调配参数。基础参数被赋予不同的值，产生的单模型往往差别较大。单模型通常需使用交叉验证来确定参数。因此融合模型可以看作使用不同参数训练了多个模型。</li>
+</ol>
+<h2 id="融合方法"><a href="#融合方法" class="headerlink" title="融合方法"></a>融合方法</h2><ul>
+<li>平均法</li>
+</ul>
+<p>对单模型结果进行加权平均输出。</p>
+<ul>
+<li><p>投票法</p>
+<p>绝对多数投票，相对多数投票，加权投票，软投票</p>
+</li>
+<li><p>Bagging</p>
+</li>
+<li>Stacking</li>
+</ul>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>模型融合本质上属于集成学习的范畴。单模型做到一定程度后，如果单模型的多样性比较大，尝试模型融合极有可能取得令人喜悦的效果提升。但使用模型融合还要考虑系统性能和高阶融合收益的权衡问题。</p>
+
+        </section>
+    </article>
+    
+        
+  </div>
+  <aside>
+    
+    <div class="toc-container">
+        <h1>目录</h1>
+        <div class="content">
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#融合方法"><span class="toc-number">1.</span> <span class="toc-text">融合方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#小结"><span class="toc-number">2.</span> <span class="toc-text">小结</span></a></li></ol>
+        </div>
+    </div>
+    
+  </aside>
+</main>
+
+
+
+  <footer>
+  <div class="copyright">
+    <div>
+      &copy; 2019 | Powered by <a href="https://hexo.io" target="_blank">Hexo</a>&nbsp
+    </div>
+    <div>
+      Theme by <a href="https://github.com/lewis-geek/hexo-theme-Aath" target="_blank">Aath</a>
+    </div>
+  </div>
+</footer>
+
+
+<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script src="/lib/in-view.min.js"></script>
+<script src="/lib/lodash.min.js"></script>
+<script>
+  var isDown = true
+  var oldY = 0
+  inView.offset(50)
+
+  document.body.addEventListener('touchstart', function(){});
+  
+  window.addEventListener('scroll', _.throttle(e => {
+    var currentY = window.scrollY
+    if((oldY - currentY) < 0) {
+      isDown = true
+    } else {
+      isDown = false
+    }
+    oldY = currentY
+  }, 250))
+
+  $("article img").each(function() {
+      var strA = "<a data-fancybox='gallery' href='" + this.src + "'></a>";
+      $(this).wrapAll(strA);
+  });
+
+  $('.toc-link').each(function() {
+      var href = $(this).attr("href");
+      
+      inView(href).on('exit', () => {
+        if (isDown) {
+          handleActive(href)
+        }
+      })
+
+      inView(href).on('enter', () => {
+        if (!isDown) {
+          handleActive(href)
+        }
+      })
+
+      this.onclick = function(e) {
+        var pos = $(href).offset().top - 10;
+        $("html,body").animate({scrollTop: pos}, 300);
+        setTimeout(() => {
+          handleActive(href)
+        }, 350)
+        return false
+      }
+  })
+
+  function handleActive(href) {
+    document.querySelectorAll('.toc-link').forEach(elm => {
+      elm.classList.remove('active')
+    })
+    document.querySelector(".toc [href='"+ href +"']").classList.add('active')
+  }
+</script>
+<script src="/lib/jquery.fancybox.min.js"></script>
+
+
+</body>
+</html>

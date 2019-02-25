@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang=zh>
+  <head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="description" content="BroadTech machine learning blog">
+  <meta name="keywords" content="MachineLearning, DeepLearning, BigData">
+  
+    <link rel="icon" href="/img/favicon.ico">
+  
+    
+  <title>特征工程 | Broadtech</title>
+  <link rel="stylesheet" href="/style.css">
+  <link rel="stylesheet" href="/lib/jquery.fancybox.min.css">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body>
+  <header>
+  <div class="header-container">
+    <a class="logo" href="/">
+      <span>Broadtech</span>
+    </a>
+    <ul class="right-header">
+      
+        <li class="nav-item">
+          
+            <a href="/" class="item-link">首页</a>
+          
+        </li>
+      
+        <li class="nav-item">
+          
+            <a href="/about" class="item-link">关于</a>
+          
+        </li>
+      
+        <li class="nav-item">
+          
+            <a href="/archives" class="item-link">归档</a>
+          
+        </li>
+      
+        <li class="nav-item">
+          
+            <a href="/tags" class="item-link">标签</a>
+          
+        </li>
+      
+    </ul>
+  </div>
+</header>
+
+  <main id="post">
+  <div class="content">
+    <article>
+        <section class="content markdown-body">
+          <h1>特征工程</h1>
+          <div class="post-meta">
+            <i class="fa fa-calendar" aria-hidden="true"></i> <time>2019/02/03</time>
+            
+            
+              | 
+                  <i class="fa fa-tag" aria-hidden="true"></i>
+                
+               
+  <a href="/tags/#MachineLearning" class="tag">MachineLearning</a>
+
+
+            
+          </div>
+          <h2 id="特征提取"><a href="#特征提取" class="headerlink" title="特征提取"></a>特征提取</h2><ul>
+<li>探索性数据分析</li>
+<li><p>数值特征提取</p>
+<ul>
+<li>截断</li>
+<li>二值化</li>
+<li>分桶</li>
+<li>缩放</li>
+<li>缺失值处理</li>
+<li>特征交叉</li>
+<li>非线性编码</li>
+<li>行统计量</li>
+</ul>
+</li>
+<li><p>类别特征</p>
+<ul>
+<li>自然数编码</li>
+<li>独热编码</li>
+<li>分层编码</li>
+<li>散列编码(HASH编码)</li>
+<li>计数编码</li>
+<li>计数排名编码</li>
+<li>目标编码</li>
+<li>类别特征之间交叉组合</li>
+<li>类别特征和数值特征之间交叉组合</li>
+</ul>
+</li>
+<li><p>时间特征</p>
+<ul>
+<li>时间基本特征</li>
+<li>滞后特征</li>
+<li>滑动窗口统计特征</li>
+<li>扩展窗口统计</li>
+</ul>
+</li>
+<li><p>空间特征</p>
+<ul>
+<li>数值特征</li>
+<li>散列特征</li>
+</ul>
+</li>
+<li><p>文本特征</p>
+<ul>
+<li>预处理：转化大小写、分词、去除无用字符、提取词根、拼写纠错、词干提取、标点符号编码、文档特征、实体插入和提取、Word2Vec、文本相似性、去除停止词、去除稀有词、TF-IDF、LDA、LSA等</li>
+<li>语料构建</li>
+<li>文本清洗</li>
+<li>分词：词性标注、词形还原和词干提取、文本统计特征、N-Gram模型</li>
+<li>Skip-Gram模型：词集模型、词袋模型、TF-IDF</li>
+<li>余弦相似度</li>
+<li>Jaccard相似度</li>
+<li>Levenshtein（编辑距离）</li>
+<li>隐性语义分析</li>
+<li>Word2Vec</li>
+</ul>
+</li>
+</ul>
+<h2 id="特征选择"><a href="#特征选择" class="headerlink" title="特征选择"></a>特征选择</h2><ul>
+<li>特征过滤</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">graph LR</span><br><span class="line">特征全集--&gt;特征选择</span><br><span class="line">特征选择--&gt;机器学习算法</span><br><span class="line">机器学习算法--&gt;模型效果</span><br></pre></td></tr></table></figure>
+<ul>
+<li>覆盖率</li>
+<li>皮尔森相关系数</li>
+<li>Fisher得分</li>
+<li>假设检验</li>
+<li>互信息（Kullback-Leibler散度、相对熵）</li>
+<li>最小冗余最大相关性</li>
+<li><p>相关特征选择</p>
+</li>
+<li><p>封装方法</p>
+<p>对特征子集训练模型，评估模型优劣来选择特征</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">graph LR</span><br><span class="line">特征全集</span><br><span class="line">subgraph 特征选择</span><br><span class="line">生成特征子集--&gt;机器学习方法</span><br><span class="line">机器学习方法--&gt;生成特征子集</span><br><span class="line">end</span><br><span class="line">模型效果</span><br><span class="line">特征全集--&gt;生成特征子集</span><br><span class="line">机器学习方法--&gt;模型效果</span><br></pre></td></tr></table></figure>
+<ul>
+<li>完全搜索 </li>
+<li>启发式搜索</li>
+<li>随机搜索</li>
+</ul>
+</li>
+<li><p>嵌入方法</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">graph LR</span><br><span class="line">特征全集</span><br><span class="line">subgraph 特征选择</span><br><span class="line">生成特征子集--&gt;机器学习方法+模型效果</span><br><span class="line">机器学习方法+模型效果--&gt;生成特征子集</span><br><span class="line">end</span><br><span class="line">特征全集--&gt;生成特征子集</span><br></pre></td></tr></table></figure>
+<ul>
+<li>LASSO方法</li>
+</ul>
+</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th></th>
+<th>特征选择方法</th>
+<th>优点</th>
+<th>缺点</th>
+<th>举例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>过滤方法</td>
+<td>单变量</td>
+<td>速度快<br>可扩展<br>跟机器学习模型独立</td>
+<td>忽略特征之间的关系<br>忽略特征和模型之间的关系</td>
+<td>卡方检验<br>信息增益<br>相关系数</td>
+</tr>
+<tr>
+<td>过滤方法</td>
+<td>多变量</td>
+<td>考虑了特征之间的相关性<br>跟机器学习模型独立<br>计算复杂度优于封装方法</td>
+<td>计算速度和可扩展性低于单变量方法<br>忽略了特征和模型之间的关系</td>
+<td>基于相关性的特征选择(CFS)<br>MBF<br>FCBF</td>
+</tr>
+<tr>
+<td>封装方法</td>
+<td>确定性算法</td>
+<td>简单<br>跟机器学习模型相关<br>考虑特征之间的相互作用<br>计算密集程度低于随机算法</td>
+<td>容易过拟合<br>相比随机算法容易卡在局部最优子集<br>依赖机器学习模型</td>
+<td>序列向前特征选择<br>序列向后特征删减<br>增Q删R</td>
+</tr>
+<tr>
+<td></td>
+<td>随机算法</td>
+<td>不容易达到局部极小点<br>跟机器学习模型相关<br>考虑特征之间的相互作用</td>
+<td>计算密集<br>依赖机器学习模型<br></td>
+<td>模拟退火<br>随机梯度下降<br>基因算法</td>
+</tr>
+<tr>
+<td>嵌入方法</td>
+<td></td>
+<td>与模型相关<br>计算复杂度优于封装方法<br>考虑特征之间的相互作用</td>
+<td>依赖机器学习模型</td>
+<td>决策树、随机森林、梯度提升树<br>SVM<br>LASSO<br></td>
+</tr>
+</tbody>
+</table>
+</div>
+
+        </section>
+    </article>
+    
+        
+  </div>
+  <aside>
+    
+    <div class="toc-container">
+        <h1>目录</h1>
+        <div class="content">
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#特征提取"><span class="toc-number">1.</span> <span class="toc-text">特征提取</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#特征选择"><span class="toc-number">2.</span> <span class="toc-text">特征选择</span></a></li></ol>
+        </div>
+    </div>
+    
+  </aside>
+</main>
+
+
+
+  <footer>
+  <div class="copyright">
+    <div>
+      &copy; 2019 | Powered by <a href="https://hexo.io" target="_blank">Hexo</a>&nbsp
+    </div>
+    <div>
+      Theme by <a href="https://github.com/lewis-geek/hexo-theme-Aath" target="_blank">Aath</a>
+    </div>
+  </div>
+</footer>
+
+
+<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script src="/lib/in-view.min.js"></script>
+<script src="/lib/lodash.min.js"></script>
+<script>
+  var isDown = true
+  var oldY = 0
+  inView.offset(50)
+
+  document.body.addEventListener('touchstart', function(){});
+  
+  window.addEventListener('scroll', _.throttle(e => {
+    var currentY = window.scrollY
+    if((oldY - currentY) < 0) {
+      isDown = true
+    } else {
+      isDown = false
+    }
+    oldY = currentY
+  }, 250))
+
+  $("article img").each(function() {
+      var strA = "<a data-fancybox='gallery' href='" + this.src + "'></a>";
+      $(this).wrapAll(strA);
+  });
+
+  $('.toc-link').each(function() {
+      var href = $(this).attr("href");
+      
+      inView(href).on('exit', () => {
+        if (isDown) {
+          handleActive(href)
+        }
+      })
+
+      inView(href).on('enter', () => {
+        if (!isDown) {
+          handleActive(href)
+        }
+      })
+
+      this.onclick = function(e) {
+        var pos = $(href).offset().top - 10;
+        $("html,body").animate({scrollTop: pos}, 300);
+        setTimeout(() => {
+          handleActive(href)
+        }, 350)
+        return false
+      }
+  })
+
+  function handleActive(href) {
+    document.querySelectorAll('.toc-link').forEach(elm => {
+      elm.classList.remove('active')
+    })
+    document.querySelector(".toc [href='"+ href +"']").classList.add('active')
+  }
+</script>
+<script src="/lib/jquery.fancybox.min.js"></script>
+
+
+</body>
+</html>

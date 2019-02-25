@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang=zh>
+  <head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="description" content="BroadTech machine learning blog">
+  <meta name="keywords" content="MachineLearning, DeepLearning, BigData">
+  
+    <link rel="icon" href="/img/favicon.ico">
+  
+    
+  <title>对数几率回归（逻辑回归） | Broadtech</title>
+  <link rel="stylesheet" href="/style.css">
+  <link rel="stylesheet" href="/lib/jquery.fancybox.min.css">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body>
+  <header>
+  <div class="header-container">
+    <a class="logo" href="/">
+      <span>Broadtech</span>
+    </a>
+    <ul class="right-header">
+      
+        <li class="nav-item">
+          
+            <a href="/" class="item-link">首页</a>
+          
+        </li>
+      
+        <li class="nav-item">
+          
+            <a href="/about" class="item-link">关于</a>
+          
+        </li>
+      
+        <li class="nav-item">
+          
+            <a href="/archives" class="item-link">归档</a>
+          
+        </li>
+      
+        <li class="nav-item">
+          
+            <a href="/tags" class="item-link">标签</a>
+          
+        </li>
+      
+    </ul>
+  </div>
+</header>
+
+  <main id="post">
+  <div class="content">
+    <article>
+        <section class="content markdown-body">
+          <h1>对数几率回归（逻辑回归）</h1>
+          <div class="post-meta">
+            <i class="fa fa-calendar" aria-hidden="true"></i> <time>2019/02/06</time>
+            
+            
+              | 
+                  <i class="fa fa-tag" aria-hidden="true"></i>
+                
+               
+  <a href="/tags/#MachineLearning" class="tag">MachineLearning</a>
+
+
+            
+          </div>
+          <h2 id="算法原理"><a href="#算法原理" class="headerlink" title="算法原理"></a>算法原理</h2><p>逻辑回归是一种广义线性模型，它与线性回归模型包含的线性函数十分相似。逻辑回归通过对数概率函数将线性函数的结果进行映射，目标函数的取值空间从$(-\infin, +\infin)$映射到了$(0, 1)$,从而可以处理分类问题。</p>
+<h3 id="y-frac-1-1-e-theta-Tx-b"><a href="#y-frac-1-1-e-theta-Tx-b" class="headerlink" title="$y=\frac{1}{1+e^{-\theta^Tx+b}}$"></a>$y=\frac{1}{1+e^{-\theta^Tx+b}}$</h3><p><img src="/assets/imgs/lr1.png" alt="img"></p>
+<p>定义：（逻辑回归模型）二项逻辑回归模型有如下的条件概率分布:</p>
+<p>$P(Y=1|X)=\frac{1}{1+e^{-\theta^Tx+b}}$<br>$P(Y=0|X)=1-\frac{1}{1+e^{-\theta^Tx+b}}$</p>
+<p>其中$x\in R^n$是输入特征向量， $Y\in {0, 1}$是输出预测类别。</p>
+<p>优化方法：</p>
+<ul>
+<li><p>使用梯度下降对逻辑回归模型进行求解。</p>
+<p>如果$h_0=\frac{1}{1+e^{-\theta^Tx+b}}$，那么可以构造关于$\theta$最大似然概率，即令每个样本属于其真实标记的概率越大越好,:</p>
+<p>$L(\theta) = \prod<em>{i=1}^{m}P(y_i|x_i;\theta)=\prod</em>{i=1}^{m}(h<em>\theta(x))^y(1-h</em>\theta(x))^{1-y}$</p>
+<p>要最大化$L(\theta)$，可以先将上式取对数变为求和，然后乘以一个负系数转换为求解最小值的问题：</p>
+<p>$L(\theta)=-\frac{1}{2}\sum<em>{i=1}^{m}[y_ilogh</em>\theta(x<em>i)+(1-y_i)log(1-h</em>\theta(x_i))]$</p>
+<p>代入梯度下降法求解公式：</p>
+<p>$\theta<em>{j+1}=\theta_j-\alpha\frac{\partial L(\theta)}{\partial \theta}=\theta_j-\alpha\frac{1}{m}\sum</em>{i=1}^{m}x<em>i[h</em>\theta(x_i)-y_i]$</p>
+</li>
+<li><p>周志华《机器学习》解法</p>
+<p>考虑线性模型预测值$z=\theta^Tx+b$,要将预测值转换到为0/1类别，可以对预测值应用一个对数几率函数，即</p>
+<h3 id="y-frac-1-1-e-z"><a href="#y-frac-1-1-e-z" class="headerlink" title="$y=\frac{1}{1+e^{-z}}$"></a>$y=\frac{1}{1+e^{-z}}$</h3><p>代入$z$，可得$y=\frac{1}{1+e^{-\theta^Tx+b}}$</p>
+</li>
+</ul>
+<p>若将$y$视为样本$x$的正例可能性，那么$1-y$就是其反例的可能性，则两者的比值就是几率(odds)$\frac{y}{1-y}$, 反映了$x$作为正例的相对可能性。对几率取对数可得对数几率：</p>
+<p>$ln\frac{y}{1-y}=\theta^Tx+b$</p>
+<p>若将$y$视为类别的后验概率估计$p(y=1|x)$，则</p>
+<p>$ln\frac{p(y=1|x)}{p(y=0|x)}=\theta^Tx+b$</p>
+<p>显然有</p>
+<p>$p(y=1|x)=\frac{e^{\theta^Tx+b}}{1+e^{\theta^Tx+b}}$</p>
+<p>$p(y=0|x)=\frac{1}{1+e^{\theta^Tx+b}}$</p>
+<p>于是，可以通过极大似然法来估计$\theta$和$b$，对数几率回归模型最大化对数似然为：</p>
+<p>$l(\theta, b)=\sum_{i=1}^{m}ln p(y_i|x_i;\theta, b)$</p>
+<p>即令每个样本属于其真实标记的概率越大越好。令$\beta=(\theta;b),\hat x=(x;1)$,则$\theta^Tx+b$可以简写为$\beta^T\hat x$。再令$p_1(\hat x’;\beta)=p(y=1|\hat x’;\beta),p_0(\hat x;\beta)=p(y=0|\hat x;\beta)=1-p_1(\hat x;\beta)$，则似然项可以重写为：</p>
+<p>$p(y_i|x_i;\omega,b)=y_ip_1(\hat x_i;\beta)+(1-y_i)p_0(\hat x_i;\beta)$</p>
+<p>代入最大化对数似然可得：</p>
+<p>$l(\beta)=\sum_{i=1}^{m}(-y_i\beta^T\hat x_i+ln(1+e^{\beta^T\hat x_i}))$</p>
+<p>上式是关于$\beta$的高阶可导连续凸函数，根据凸优化理论，经典的数值优化算法如梯度下降、牛顿法等都可以求得其最优解，于是可得：</p>
+<p>$\beta^*=arg\min \limits_l{l(\beta)}$</p>
+<p>以牛顿法为例，其第$t+1$轮迭代解的更新公式为：</p>
+<p>$\beta^{t+1}=\beta^t-(\frac{\partial^2l(\beta)}{\partial\beta\partial\beta^T})^{-1}\frac{\partial l(\beta)}{\partial\beta}$</p>
+<p>其中，关于$\beta$的一阶、二阶导数分别为</p>
+<p>$\frac{\partial l(\beta)}{\partial\beta}=-\sum \limits_{i=1}^{m}\hat x_i(y_i-p_1(\hat x_i;\beta)),$</p>
+<p>$\frac{\partial^2l(\beta)}{\partial\beta\partial\beta^T}=\sum \limits_{i=1}^{m} \hat x_i\hat x_i^Tp_1(\hat x_i;\beta)(1-p_1(\hat x_i;\beta))$</p>
+<h2 id="逻辑回归应用"><a href="#逻辑回归应用" class="headerlink" title="逻辑回归应用"></a>逻辑回归应用</h2><p>逻辑回归常用于疾病自动诊断、经济预测、点击率预测等领域。处理速度快，容易并行，适合大规模训练的样本和特征。但模型需要大量的特征组合和离散的工作来增加特征的表达性，模型表达能力弱，比较容易欠拟合。</p>
+
+        </section>
+    </article>
+    
+        
+  </div>
+  <aside>
+    
+    <div class="toc-container">
+        <h1>目录</h1>
+        <div class="content">
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#算法原理"><span class="toc-number">1.</span> <span class="toc-text">算法原理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#y-frac-1-1-e-theta-Tx-b"><span class="toc-number">1.1.</span> <span class="toc-text">$y=\frac{1}{1+e^{-\theta^Tx+b}}$</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#y-frac-1-1-e-z"><span class="toc-number">1.2.</span> <span class="toc-text">$y=\frac{1}{1+e^{-z}}$</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#逻辑回归应用"><span class="toc-number">2.</span> <span class="toc-text">逻辑回归应用</span></a></li></ol>
+        </div>
+    </div>
+    
+  </aside>
+</main>
+
+
+
+  <footer>
+  <div class="copyright">
+    <div>
+      &copy; 2019 | Powered by <a href="https://hexo.io" target="_blank">Hexo</a>&nbsp
+    </div>
+    <div>
+      Theme by <a href="https://github.com/lewis-geek/hexo-theme-Aath" target="_blank">Aath</a>
+    </div>
+  </div>
+</footer>
+
+
+<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script src="/lib/in-view.min.js"></script>
+<script src="/lib/lodash.min.js"></script>
+<script>
+  var isDown = true
+  var oldY = 0
+  inView.offset(50)
+
+  document.body.addEventListener('touchstart', function(){});
+  
+  window.addEventListener('scroll', _.throttle(e => {
+    var currentY = window.scrollY
+    if((oldY - currentY) < 0) {
+      isDown = true
+    } else {
+      isDown = false
+    }
+    oldY = currentY
+  }, 250))
+
+  $("article img").each(function() {
+      var strA = "<a data-fancybox='gallery' href='" + this.src + "'></a>";
+      $(this).wrapAll(strA);
+  });
+
+  $('.toc-link').each(function() {
+      var href = $(this).attr("href");
+      
+      inView(href).on('exit', () => {
+        if (isDown) {
+          handleActive(href)
+        }
+      })
+
+      inView(href).on('enter', () => {
+        if (!isDown) {
+          handleActive(href)
+        }
+      })
+
+      this.onclick = function(e) {
+        var pos = $(href).offset().top - 10;
+        $("html,body").animate({scrollTop: pos}, 300);
+        setTimeout(() => {
+          handleActive(href)
+        }, 350)
+        return false
+      }
+  })
+
+  function handleActive(href) {
+    document.querySelectorAll('.toc-link').forEach(elm => {
+      elm.classList.remove('active')
+    })
+    document.querySelector(".toc [href='"+ href +"']").classList.add('active')
+  }
+</script>
+<script src="/lib/jquery.fancybox.min.js"></script>
+
+
+</body>
+</html>

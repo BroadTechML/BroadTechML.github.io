@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang=zh>
+  <head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="description" content="BroadTech machine learning blog">
+  <meta name="keywords" content="MachineLearning, DeepLearning, BigData">
+  
+    <link rel="icon" href="/img/favicon.ico">
+  
+    
+  <title>场感知因子分解机 | Broadtech</title>
+  <link rel="stylesheet" href="/style.css">
+  <link rel="stylesheet" href="/lib/jquery.fancybox.min.css">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body>
+  <header>
+  <div class="header-container">
+    <a class="logo" href="/">
+      <span>Broadtech</span>
+    </a>
+    <ul class="right-header">
+      
+        <li class="nav-item">
+          
+            <a href="/" class="item-link">首页</a>
+          
+        </li>
+      
+        <li class="nav-item">
+          
+            <a href="/about" class="item-link">关于</a>
+          
+        </li>
+      
+        <li class="nav-item">
+          
+            <a href="/archives" class="item-link">归档</a>
+          
+        </li>
+      
+        <li class="nav-item">
+          
+            <a href="/tags" class="item-link">标签</a>
+          
+        </li>
+      
+    </ul>
+  </div>
+</header>
+
+  <main id="post">
+  <div class="content">
+    <article>
+        <section class="content markdown-body">
+          <h1>场感知因子分解机</h1>
+          <div class="post-meta">
+            <i class="fa fa-calendar" aria-hidden="true"></i> <time>2019/02/07</time>
+            
+            
+              | 
+                  <i class="fa fa-tag" aria-hidden="true"></i>
+                
+               
+  <a href="/tags/#MachineLearning" class="tag">MachineLearning</a>
+
+
+            
+          </div>
+          <p>逻辑回归无法学习到特征间的组合关系，人工对特征组合需要做大量的特征工程工作，暴力组合模型太复杂、参数太多。利用模型来做特征组合，比较常见的是使用支持向量机的核函数来实现特征的交叉。但是多项式核函数的二次参数过多，特征组合后得到的特征矩阵十分稀疏。而在训练样本不足的时候，特征的矩阵的稀疏性很容易导致相关参数准确性较低。可以通过对二次项参数施加某种限制来减少参数的自由度。</p>
+<p>因子分解机施加的限制是要求二次项参数矩阵是低秩的，能够分解为低秩矩阵的乘积。所有二次项参数矩阵$W$就可以分解为$W=V^TV$，$V$的第$j$列便是第$j$维特征的向量。$w_{ij}=<v_i, v_j>$就是因子分解机的核心思想。因子分解机的模型为：</v_i,></p>
+<p>$\phi<em>{FM}(\omega, x)=w_0+\sum \limits</em>{i=1}^{n}w<em>is_i+\sum \limits</em>{i=1}^n\sum \limits_{j=i+1}^{n}<v_i, v_j>x_ix_j$</v_i,></p>
+<p>其中，$v_i$ 是第 $i$ 维特征的隐向量，$⟨⋅,⋅⟩$ 代表向量点积。隐向量的长度为 $k（k&lt;&lt;n）$，包含 kk 个描述特征的因子。</p>
+<p>上式是一个通用的拟合方程，可以采用不同的损失函数用于解决分类、二元回归等问题，比如可以采用均方差损失函数来求解回归问题，也可以采用Hinge/Cross-Entropy损失来求解分类问题。在进行二元分类时，因子分解机输出需要经过Sigmoid变换。</p>
+<p>为了减少计算时间复杂度，可以通过如下变化简化因子分解机的二次项：</p>
+<p>$\sum \limits<em>{i=1}^{n-1}\sum \limits</em>{j=i+1}^{n}<v_i, v_j>x<em>ix_j=\frac{1}{2}\sum\limits</em>{i=1}^{k}((\sum \limits<em>{j=1}^{n}v</em>{i,f}x<em>i)-\sum\limits</em>{i=1}^{n}v_{i,f}^2x_i^2)$</v_i,></p>
+<p>可以利用随机梯度下降来训练FM模型。模型各个参数的梯度如下</p>
+<script type="math/tex; mode=display">
+\frac{\partial}{\partial \theta} = \begin{cases}
+1, & if\ \theta=\omega_0 \\
+x_i, & if \ \theta=w_i \\
+x_i\sum_{j=1}^{n}v_{j,f}x_j-v_{i,f}x_i^2, & if \ \theta=v_{i,f}
+\end{cases}</script><p>其中，$v_{j,f}$是隐向量$v_j$的第$f$个元素。</p>
+<p>引入特征组（场）的概念来优化这个问题。场感知因子分解机将相同性质的特征归于同一个场，按照场级别分别计算当前特征与其他场里特征组合时的特征向量。在场感知因子分解机中，每一维特征$x<em>ix_j$，针对其他特征的每一种场$f_if_j$组合，都会学习一个隐向量$v</em>{i,f<em>j}v</em>{j,f_i}$，按照特征的含义将规则分为多个场，每个特征属于某个特定的场。每个特征映射出多个隐向量，每个隐向量对应一个场。当两个特征组合时，它们分别用这两个特征对应的场的隐向量做内积，因此场感知因子分解机的模型方程为：</p>
+<p>$\phi(\omega, x)=\sum \limits<em>{i=1}^{n} \sum \limits</em>{j=i+1}^{n}<v_{i,f_j}v_{j,f_i}>x_ix_j$</v_{i,f_j}v_{j,f_i}></p>
+<h2 id="实例讲解"><a href="#实例讲解" class="headerlink" title="实例讲解"></a>实例讲解</h2><p>假设一个广告分类的问题，根据用户和广告位相关的特征，预测用户是否点击了广告。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>Clicked？</th>
+<th>Country</th>
+<th>Day</th>
+<th>Ad_type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>USA</td>
+<td>26/11/15</td>
+<td>Movie</td>
+</tr>
+<tr>
+<td>0</td>
+<td>China</td>
+<td>1/7/14</td>
+<td>Game</td>
+</tr>
+<tr>
+<td>1</td>
+<td>China</td>
+<td>19/2/15</td>
+<td>Game</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>“Clicked?”是label，Country、Day、Ad_type是特征。由于三种特征都是categorical类型的，需要经过独热编码（One-Hot Encoding）转换成数值型特征。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>Country=USA</th>
+<th>Country=China</th>
+<th>Day=26/11/15</th>
+<th>Day=1/7/14</th>
+<th>Day=19/2/15</th>
+<th>Ad_type=Movie</th>
+<th>Ad_type=Game</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>由上表可以看出，经过One-Hot编码之后，大部分样本数据特征是比较稀疏的。上面的样例中，每个样本有7维特征，但平均仅有3维特征具有非零值。实际上，这种情况并不是此例独有的，在真实应用场景中这种情况普遍存在。例如，CTR/CVR预测时，用户的性别、职业、教育水平、品类偏好，商品的品类等，经过One-Hot编码转换后都会导致样本数据的稀疏性。特别是商品品类这种类型的特征，如商品的末级品类约有550个，采用One-Hot编码生成550个数值特征，但每个样本的这550个特征，有且仅有一个是有效的（非零）。由此可见，数据稀疏性是实际问题中不可避免的挑战。</p>
+<p>One-Hot编码的另一个特点就是导致特征空间大。例如，商品品类有550维特征，一个categorical特征转换为550维数值特征，特征空间剧增。</p>
+<p>同时通过观察大量的样本数据可以发现，某些特征经过关联之后，与label之间的相关性就会提高。例如，“USA”与“Thanksgiving”、“China”与“Chinese New Year”这样的关联特征，对用户的点击有着正向的影响。换句话说，来自“China”的用户很可能会在“Chinese New Year”有大量的浏览、购买行为，而在“Thanksgiving”却不会有特别的消费行为。这种关联特征与label的正向相关性在实际问题中是普遍存在的，如“化妆品”类商品与“女”性，“球类运动配件”的商品与“男”性，“电影票”的商品与“电影”品类偏好等。因此，引入两个特征的组合是非常有意义的。</p>
+<p>在数据稀疏性普遍存在的实际应用场景中，二次项参数的训练是很困难的。那么，如何解决二次项参数的训练问题呢？矩阵分解提供了一种解决思路。在model-based的协同过滤中，一个rating矩阵可以分解为user矩阵和item矩阵，每个user和item都可以采用一个隐向量表示.比如在下图中的例子中，我们把每个user表示成一个二维向量，同时把每个item表示成一个二维向量，两个向量的点积就是矩阵中user对item的打分。</p>
+<p><img src="/assets/imgs/ffm_mf.png" alt="img"></p>
+<p>类似地，所有二次项参数$w_{ij}$可以组成一个对称阵$W$,那么这个矩阵就可以分解为$W=V^TV​$</p>
+
+        </section>
+    </article>
+    
+        
+  </div>
+  <aside>
+    
+    <div class="toc-container">
+        <h1>目录</h1>
+        <div class="content">
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#实例讲解"><span class="toc-number">1.</span> <span class="toc-text">实例讲解</span></a></li></ol>
+        </div>
+    </div>
+    
+  </aside>
+</main>
+
+
+
+  <footer>
+  <div class="copyright">
+    <div>
+      &copy; 2019 | Powered by <a href="https://hexo.io" target="_blank">Hexo</a>&nbsp
+    </div>
+    <div>
+      Theme by <a href="https://github.com/lewis-geek/hexo-theme-Aath" target="_blank">Aath</a>
+    </div>
+  </div>
+</footer>
+
+
+<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script src="/lib/in-view.min.js"></script>
+<script src="/lib/lodash.min.js"></script>
+<script>
+  var isDown = true
+  var oldY = 0
+  inView.offset(50)
+
+  document.body.addEventListener('touchstart', function(){});
+  
+  window.addEventListener('scroll', _.throttle(e => {
+    var currentY = window.scrollY
+    if((oldY - currentY) < 0) {
+      isDown = true
+    } else {
+      isDown = false
+    }
+    oldY = currentY
+  }, 250))
+
+  $("article img").each(function() {
+      var strA = "<a data-fancybox='gallery' href='" + this.src + "'></a>";
+      $(this).wrapAll(strA);
+  });
+
+  $('.toc-link').each(function() {
+      var href = $(this).attr("href");
+      
+      inView(href).on('exit', () => {
+        if (isDown) {
+          handleActive(href)
+        }
+      })
+
+      inView(href).on('enter', () => {
+        if (!isDown) {
+          handleActive(href)
+        }
+      })
+
+      this.onclick = function(e) {
+        var pos = $(href).offset().top - 10;
+        $("html,body").animate({scrollTop: pos}, 300);
+        setTimeout(() => {
+          handleActive(href)
+        }, 350)
+        return false
+      }
+  })
+
+  function handleActive(href) {
+    document.querySelectorAll('.toc-link').forEach(elm => {
+      elm.classList.remove('active')
+    })
+    document.querySelector(".toc [href='"+ href +"']").classList.add('active')
+  }
+</script>
+<script src="/lib/jquery.fancybox.min.js"></script>
+
+
+</body>
+</html>
