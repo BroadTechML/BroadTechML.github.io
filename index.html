@@ -1,259 +1,258 @@
-
 <!DOCTYPE html>
-<html lang class="loading">
-<head><meta name="generator" content="Hexo 3.8.0">
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>场感知因子分解机 - Hexo</title>
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="google" content="notranslate">
-    <meta name="keywords" content="Fechin,"> 
-    <meta name="description" content="场感知因子分解机逻辑回归无法学习到特征间的组合关系，人工对特征组合需要做大量的特征工程工作，暴力组合模型太复杂、参数太多。利用模型来做特征组合，比较常见的是使用支持向量机的核函数来实现特征的交叉。但,"> 
-    <meta name="author" content="Broadtech"> 
-    <link rel="alternative" href="atom.xml" title="Hexo" type="application/atom+xml"> 
-    <link rel="icon" href="/img/favicon.png"> 
-    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
-    <link rel="stylesheet" href="/css/diaspora.css">
-    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-    <script>
-         (adsbygoogle = window.adsbygoogle || []).push({
-              google_ad_client: "ca-pub-8691406134231910",
-              enable_page_level_ads: true
-         });
-    </script>
-    <script async custom-element="amp-auto-ads" src="https://cdn.ampproject.org/v0/amp-auto-ads-0.1.js">
-    </script>
+<html lang=>
+  <head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="description" content>
+  <meta name="keywords" content>
+  
+    <link rel="icon" href>
+  
+    
+  <title>Hexo</title>
+  <link rel="stylesheet" href="/style.css">
+  <link rel="stylesheet" href="/lib/jquery.fancybox.min.css">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
-</html>
-<body class="loading">
-    <span id="config-title" style="display:none">Hexo</span>
-    <div id="loader"></div>
-    <div class="nav">
-    <ul id="menu-menu" class="menu">
-        
-        <li class="pview menu-item menu-item-type-post_type menu-item-object-page">
-            <a href="/whoami/" title="Whoami" target="_blank" rel="noopener">Whoami</a>
+
+<body>
+  <header>
+  <div class="header-container">
+    <a class="logo" href="/">
+      <span>Hexo</span>
+    </a>
+    <ul class="right-header">
+      
+        <li class="nav-item">
+          
+            <a href="/" class="item-link active">首页</a>
+          
         </li>
-        
-        <li class="  menu-item menu-item-type-post_type menu-item-object-page">
-            <a href="https://github.com/Fechin" title="Github" target="_blank" rel="noopener">Github</a>
+      
+        <li class="nav-item">
+          
+            <a href="/about" class="item-link">关于</a>
+          
         </li>
-        
-        <li class="  menu-item menu-item-type-post_type menu-item-object-page">
-            <a href="https://twitter.com/FechinLi" title="Twitter" target="_blank" rel="noopener">Twitter</a>
+      
+        <li class="nav-item">
+          
+            <a href="/archives" class="item-link">归档</a>
+          
         </li>
-        
+      
+        <li class="nav-item">
+          
+            <a href="/tags" class="item-link">标签</a>
+          
+        </li>
+      
     </ul>
-    <p id="copyright">
-        &copy; 2019 Broadtech.
-        Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
-        Theme <a href="https://github.com/Fechin/hexo-theme-diaspora" title="Diaspora" target="_blank" rel="noopener">Diaspora</a>
-        by Fechin
-    </p>
-</div>
+  </div>
+</header>
 
-<div id="container">
+  <main id="index">
+  <div class="posts-list">
     
-<div id="screen">
-    <div id="mark">
-        <div class="layer" data-depth="0.4">
-            <img src="/img/welcome-cover.jpg" id="cover" crossorigin="anonymous" width="1920" height="1080">
-        </div>
-    </div>
-    <div id="vibrant">
-        <svg viewbox="0 0 2880 1620" height="100%" preserveaspectratio="xMaxYMax slice">
-            <polygon opacity="0.7" points="2000,1620 0,1620 0,0 600,0 "/>
-        </svg>
-        <div></div>
-    </div>
-    <div id="header">
-        <div>
-            <a class="image-logo" href="/"></a>
-            <div class="icon-menu switchmenu"></div>
-        </div>
-    </div>
-    
-    <div id="post0">
-        <p>二月 22, 2019</p>
-        <h2><a href="/2019/02/22/美团机器学习实践-常用模型-场感知因子分解机/" title="场感知因子分解机" class="posttitle">场感知因子分解机</a></h2>
-        <p class="summary">场感知因子分解机逻辑回归无法学习到特征间的组合关系，人工对特征组合需要做大量的特征工程工作，暴力组合模型太复杂、参...</p>
-    </div>
-    
-</div>
-
-    <div id="primary">
+      <section>
+        <a href="/2019/02/22/美团机器学习实践-常用模型-场感知因子分解机/">
+          <h3 class="post-head">
+            场感知因子分解机
+          </h3>
+        </a>
         
-<div class="post">
-    <a href="/2019/02/22/美团机器学习实践-常用模型-对数几率回归/" title="对数几率回归（逻辑回归）">
-        <img src="/img/cover.jpg" class="cover" width="680" height="440">
-    </a>
-    <div class="else">
-        <p>二月 22, 2019</p>
-        <h3><a href="/2019/02/22/美团机器学习实践-常用模型-对数几率回归/" title="对数几率回归（逻辑回归）" class="posttitle">对数几率回归（逻辑回归）</a></h3>
-        <p>对数几率回归（逻辑回归）算法原理
-$y=\frac{1}{1+e^{-\theta^Tx+b}}$逻辑回归是一种广义线性模型，它与线性回归模型包含的线性函...</p>
-    </div>
-</div>
-
-
-<div class="post">
-    <a href="/2019/02/22/美团机器学习实践-模型融合/" title="模型融合">
-        <img src="/img/cover.jpg" class="cover" width="680" height="440">
-    </a>
-    <div class="else">
-        <p>二月 22, 2019</p>
-        <h3><a href="/2019/02/22/美团机器学习实践-模型融合/" title="模型融合" class="posttitle">模型融合</a></h3>
-        <p>模型融合模型融合通过构建并融合多个模型来完成学习任务，也称多分类器系统或基于委员会的学习。
-
-模型融合主要包含两个阶段：构建若干单模型和模型融合。单模型通...</p>
-    </div>
-</div>
-
-
-<div class="post">
-    <a href="/2019/02/22/美团机器学习实践-常用模型-梯度提升树/" title="梯度提升树">
-        <img src="/img/cover.jpg" class="cover" width="680" height="440">
-    </a>
-    <div class="else">
-        <p>二月 22, 2019</p>
-        <h3><a href="/2019/02/22/美团机器学习实践-常用模型-梯度提升树/" title="梯度提升树" class="posttitle">梯度提升树</a></h3>
-        <p>梯度提升树梯度提升树是一种基于回归树的集成学习方法，它通过构造多个弱的回归树作为基学习器，并把这些树的结果累加起来作为最终的预测输出。
-原理梯度提升树是集...</p>
-    </div>
-</div>
-
-
-<div class="post">
-    <a href="/2019/02/22/美团机器学习实践-特征工程/" title="Untitled">
-        <img src="/img/cover.jpg" class="cover" width="680" height="440">
-    </a>
-    <div class="else">
-        <p>二月 22, 2019</p>
-        <h3><a href="/2019/02/22/美团机器学习实践-特征工程/" title="Untitled" class="posttitle">Untitled</a></h3>
-        <p>特征工程特征提取
-探索性数据分析
-数值特征提取
-
-截断
-二值化
-分桶
-缩放
-缺失值处理
-特征交叉
-非线性编码
-行统计量
-
-
-类别特征
-
-自然数编码
-独热编...</p>
-    </div>
-</div>
-
-
-<div class="post">
-    <a href="/2019/02/22/美团机器学习实践-用户画像/" title="用户画像">
-        <img src="/img/cover.jpg" class="cover" width="680" height="440">
-    </a>
-    <div class="else">
-        <p>二月 22, 2019</p>
-        <h3><a href="/2019/02/22/美团机器学习实践-用户画像/" title="用户画像" class="posttitle">用户画像</a></h3>
-        <p>用户画像用户画像这一概念在业界没有明确的定义。用户模型指真实用户的虚拟代表，是在深刻理解真实数据的基础上得出的一个虚拟用户；通过调研去了解用户，根据其目标...</p>
-    </div>
-</div>
-
-
-<div class="post">
-    <a href="/2019/02/22/roaminglog特征挖掘/" title="roaminglog表特征数据挖掘">
-        <img src="/img/cover.jpg" class="cover" width="680" height="440">
-    </a>
-    <div class="else">
-        <p>二月 22, 2019</p>
-        <h3><a href="/2019/02/22/roaminglog特征挖掘/" title="roaminglog表特征数据挖掘" class="posttitle">roaminglog表特征数据挖掘</a></h3>
-        <p>roaminglog表特征数据挖掘roaminglog表记录了江苏联通用户的漫游通话行为，每条记录记录一次通话，其中江苏用户可能是呼叫方，也可能是接听方，...</p>
-    </div>
-</div>
-
-
-<div class="post">
-    <a href="/2019/02/22/hello-world/" title="Hello World">
-        <img src="/img/cover.jpg" class="cover" width="680" height="440">
-    </a>
-    <div class="else">
-        <p>二月 22, 2019</p>
-        <h3><a href="/2019/02/22/hello-world/" title="Hello World" class="posttitle">Hello World</a></h3>
-        <p>Welcome to Hexo! This is your very first post. Check documentation for more i...</p>
-    </div>
-</div>
-
-
-    </div>
+        <div class="post-content">
+          
+            
+              
+                <h1 id="场感知因子分解机"><a href="#场感知因子分解机" class="headerlink" title="场感知因子分解机"></a>场感知因子分解机</h1><p>逻辑回归无法学习到特征间的组合关系，人工对特征组合需要做大量的特征工程工作，暴力组合模型太复杂、参数太多。利用模型来做特征组合，比较常见的是使用支持向量机的核函数来实现特征的交叉。但是多项式核函数的二次参数过多，特征组合后得到的特征矩阵十分稀疏。而在训练样本不足的时候，特征的矩阵的稀疏性很容易导致相关参数准确性较低。可以通过对二次项参数施加某种限制来减少参数的自由度。</p>
+              
+          
+        </div>
+        <div class="post-meta">
+          <i class="fa fa-calendar" aria-hidden="true"></i> <time>2019/02/22</time>
+          
+          
+        </div>
+      </section>
     
-</div>
-<div id="preview"></div>
+      <section>
+        <a href="/2019/02/22/美团机器学习实践-常用模型-对数几率回归/">
+          <h3 class="post-head">
+            对数几率回归（逻辑回归）
+          </h3>
+        </a>
+        
+        <div class="post-content">
+          
+            
+              
+                <h1 id="对数几率回归（逻辑回归）"><a href="#对数几率回归（逻辑回归）" class="headerlink" title="对数几率回归（逻辑回归）"></a>对数几率回归（逻辑回归）</h1><h2 id="算法原理"><a href="#算法原理" class="headerlink" title="算法原理"></a>算法原理</h2><p><img src="assets/imgs/lr1.png" alt="lr"></p>
+              
+          
+        </div>
+        <div class="post-meta">
+          <i class="fa fa-calendar" aria-hidden="true"></i> <time>2019/02/22</time>
+          
+          
+        </div>
+      </section>
+    
+      <section>
+        <a href="/2019/02/22/美团机器学习实践-常用模型-梯度提升树/">
+          <h3 class="post-head">
+            梯度提升树
+          </h3>
+        </a>
+        
+        <div class="post-content">
+          
+            
+              
+                <h1 id="梯度提升树"><a href="#梯度提升树" class="headerlink" title="梯度提升树"></a>梯度提升树</h1><p>梯度提升树是一种基于回归树的集成学习方法，它通过构造多个弱的回归树作为基学习器，并把这些树的结果累加起来作为最终的预测输出。</p>
+              
+          
+        </div>
+        <div class="post-meta">
+          <i class="fa fa-calendar" aria-hidden="true"></i> <time>2019/02/22</time>
+          
+          
+        </div>
+      </section>
+    
+      <section>
+        <a href="/2019/02/22/美团机器学习实践-模型融合/">
+          <h3 class="post-head">
+            模型融合
+          </h3>
+        </a>
+        
+        <div class="post-content">
+          
+            
+              
+                <h1 id="模型融合"><a href="#模型融合" class="headerlink" title="模型融合"></a>模型融合</h1><p>模型融合通过构建并融合多个模型来完成学习任务，也称多分类器系统或基于委员会的学习。</p>
+              
+          
+        </div>
+        <div class="post-meta">
+          <i class="fa fa-calendar" aria-hidden="true"></i> <time>2019/02/22</time>
+          
+          
+        </div>
+      </section>
+    
+      <section>
+        <a href="/2019/02/22/美团机器学习实践-特征工程/">
+          <h3 class="post-head">
+            Untitled
+          </h3>
+        </a>
+        
+        <div class="post-content">
+          
+            
+              
+                <h1 id="特征工程"><a href="#特征工程" class="headerlink" title="特征工程"></a>特征工程</h1><h2 id="特征提取"><a href="#特征提取" class="headerlink" title="特征提取"></a>特征提取</h2><ul>
+              
+          
+        </ul></div>
+        <div class="post-meta">
+          <i class="fa fa-calendar" aria-hidden="true"></i> <time>2019/02/22</time>
+          
+          
+        </div>
+      </section>
+    
+      <section>
+        <a href="/2019/02/22/美团机器学习实践-用户画像/">
+          <h3 class="post-head">
+            用户画像
+          </h3>
+        </a>
+        
+        <div class="post-content">
+          
+            
+              
+                <h1 id="用户画像"><a href="#用户画像" class="headerlink" title="用户画像"></a>用户画像</h1><p>用户画像这一概念在业界没有明确的定义。用户模型指真实用户的虚拟代表，是在深刻理解真实数据的基础上得出的一个虚拟用户；通过调研去了解用户，根据其目标、行为和观点的差异，将他们分为不同的类型，然后从每种类型中抽取出典型特征，赋予名字、照片、人口统计学要素、场景等描述，就形成了一个用户模型。</p>
+              
+          
+        </div>
+        <div class="post-meta">
+          <i class="fa fa-calendar" aria-hidden="true"></i> <time>2019/02/22</time>
+          
+          
+        </div>
+      </section>
+    
+      <section>
+        <a href="/2019/02/22/roaminglog特征挖掘/">
+          <h3 class="post-head">
+            roaminglog表特征数据挖掘
+          </h3>
+        </a>
+        
+        <div class="post-content">
+          
+            
+              
+                <h1 id="roaminglog表特征数据挖掘"><a href="#roaminglog表特征数据挖掘" class="headerlink" title="roaminglog表特征数据挖掘"></a>roaminglog表特征数据挖掘</h1><p><code>roaminglog</code>表记录了江苏联通用户的漫游通话行为，每条记录记录一次通话，其中江苏用户可能是呼叫方，也可能是接听方，通话方向由<code>record_type</code>决定。<code>record_type</code>=20,江苏联通用户主叫，<code>record_type</code>=30，江苏联通被叫。进行特征工程时，要注意以江苏联通用户为主键(<code>caller_isdn</code>,<code>called_isdn</code>)，区分<code>record_type</code>分别进行特征工程</p>
+              
+          
+        </div>
+        <div class="post-meta">
+          <i class="fa fa-calendar" aria-hidden="true"></i> <time>2019/02/22</time>
+          
+          
+        </div>
+      </section>
+    
+      <section>
+        <a href="/2019/02/22/hello-world/">
+          <h3 class="post-head">
+            Hello World
+          </h3>
+        </a>
+        
+        <div class="post-content">
+          
+            
+              
+                <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
+              
+          
+        </div>
+        <div class="post-meta">
+          <i class="fa fa-calendar" aria-hidden="true"></i> <time>2019/02/22</time>
+          
+          
+        </div>
+      </section>
+    
+  </div>
+  <aside>
+    
+    
+    
+    
+  </aside>
+</main>
+
+
+  <footer>
+  <div class="copyright">
+    <div>
+      &copy; 2019 | Powered by <a href="https://hexo.io" target="_blank">Hexo</a>&nbsp
+    </div>
+    <div>
+      Theme by <a href="https://github.com/lewis-geek/hexo-theme-Aath" target="_blank">Aath</a>
+    </div>
+  </div>
+</footer>
+
+
 
 </body>
-<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
-<script src="//lib.baomitu.com/jquery/1.8.3/jquery.min.js"></script>
-<script src="/js/plugin.js"></script>
-<script src="/js/diaspora.js"></script>
-<link rel="stylesheet" href="/photoswipe/photoswipe.css">
-<link rel="stylesheet" href="/photoswipe/default-skin/default-skin.css">
-<script src="/photoswipe/photoswipe.min.js"></script>
-<script src="/photoswipe/photoswipe-ui-default.min.js"></script>
-
-<!-- Root element of PhotoSwipe. Must have class pswp. -->
-<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
-    <!-- Background of PhotoSwipe. 
-         It's a separate element as animating opacity is faster than rgba(). -->
-    <div class="pswp__bg"></div>
-    <!-- Slides wrapper with overflow:hidden. -->
-    <div class="pswp__scroll-wrap">
-        <!-- Container that holds slides. 
-            PhotoSwipe keeps only 3 of them in the DOM to save memory.
-            Don't modify these 3 pswp__item elements, data is added later on. -->
-        <div class="pswp__container">
-            <div class="pswp__item"></div>
-            <div class="pswp__item"></div>
-            <div class="pswp__item"></div>
-        </div>
-        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
-        <div class="pswp__ui pswp__ui--hidden">
-            <div class="pswp__top-bar">
-                <!--  Controls are self-explanatory. Order can be changed. -->
-                <div class="pswp__counter"></div>
-                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
-                <button class="pswp__button pswp__button--share" title="Share"></button>
-                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
-                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
-                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
-                <!-- element will get class pswp__preloader--active when preloader is running -->
-                <div class="pswp__preloader">
-                    <div class="pswp__preloader__icn">
-                      <div class="pswp__preloader__cut">
-                        <div class="pswp__preloader__donut"></div>
-                      </div>
-                    </div>
-                </div>
-            </div>
-            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
-                <div class="pswp__share-tooltip"></div> 
-            </div>
-            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
-            </button>
-            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
-            </button>
-            <div class="pswp__caption">
-                <div class="pswp__caption__center"></div>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-
-
 </html>
