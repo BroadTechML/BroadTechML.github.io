@@ -58,11 +58,19 @@
         <section class="content markdown-body">
           <h1>梯度提升树</h1>
           <div class="post-meta">
-            <i class="fa fa-calendar" aria-hidden="true"></i> <time>2019/02/22</time>
+            <i class="fa fa-calendar" aria-hidden="true"></i> <time>2019/02/21</time>
             
+            
+              | 
+                  <i class="fa fa-tag" aria-hidden="true"></i>
+                
+               
+  <a href="/tags/#MachineLearning" class="tag">MachineLearning</a>
+
+
             
           </div>
-          <h1 id="梯度提升树"><a href="#梯度提升树" class="headerlink" title="梯度提升树"></a>梯度提升树</h1><p>梯度提升树是一种基于回归树的集成学习方法，它通过构造多个弱的回归树作为基学习器，并把这些树的结果累加起来作为最终的预测输出。</p>
+          <p>梯度提升树是一种基于回归树的集成学习方法，它通过构造多个弱的回归树作为基学习器，并把这些树的结果累加起来作为最终的预测输出。</p>
 <h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>梯度提升树是集成学习方法Boosting的一个成员，它在训练时采用前向分布算法，首先确定一棵树的拟合的值，然后基于之前所有树的误差来更新训练，并训练下一棵树，一步一步迭代下去直到迭代次数完毕。首先确定初始提升树$f(x)=0$，然后在后续训练时，第$m$步的模型是：<br>$$<br>f_m(x)=f_{m-1}(x)+T(x;\Theta_m)<br>$$<br>其中，$f_{m-1}(x)$是当前模型，通过经验风险最小化确定下一棵树的参数$\Theta_m$。<br>$$<br>\Theta_m = argmin \sum \limits_{i=1}^{N}L(y_i, f_{m-1}(x_i)+T(x; \Theta_m))<br>$$<br>$T(x; \Theta_m)$表示当前构建的随机树。可以使用梯度下降法优化上式。</p>
 
         </section>
@@ -75,7 +83,7 @@
     <div class="toc-container">
         <h1>目录</h1>
         <div class="content">
-            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#梯度提升树"><span class="toc-number">1.</span> <span class="toc-text">梯度提升树</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#原理"><span class="toc-number">1.1.</span> <span class="toc-text">原理</span></a></li></ol></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#原理"><span class="toc-number">1.</span> <span class="toc-text">原理</span></a></li></ol>
         </div>
     </div>
     

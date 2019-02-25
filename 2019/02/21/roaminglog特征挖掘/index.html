@@ -58,11 +58,19 @@
         <section class="content markdown-body">
           <h1>roaminglog表特征数据挖掘</h1>
           <div class="post-meta">
-            <i class="fa fa-calendar" aria-hidden="true"></i> <time>2019/02/22</time>
+            <i class="fa fa-calendar" aria-hidden="true"></i> <time>2019/02/21</time>
             
+            
+              | 
+                  <i class="fa fa-tag" aria-hidden="true"></i>
+                
+               
+  <a href="/tags/#analysis" class="tag">analysis</a>
+
+
             
           </div>
-          <h1 id="roaminglog表特征数据挖掘"><a href="#roaminglog表特征数据挖掘" class="headerlink" title="roaminglog表特征数据挖掘"></a>roaminglog表特征数据挖掘</h1><p><code>roaminglog</code>表记录了江苏联通用户的漫游通话行为，每条记录记录一次通话，其中江苏用户可能是呼叫方，也可能是接听方，通话方向由<code>record_type</code>决定。<code>record_type</code>=20,江苏联通用户主叫，<code>record_type</code>=30，江苏联通被叫。进行特征工程时，要注意以江苏联通用户为主键(<code>caller_isdn</code>,<code>called_isdn</code>)，区分<code>record_type</code>分别进行特征工程</p>
+          <p><code>roaminglog</code>表记录了江苏联通用户的漫游通话行为，每条记录记录一次通话，其中江苏用户可能是呼叫方，也可能是接听方，通话方向由<code>record_type</code>决定。<code>record_type</code>=20,江苏联通用户主叫，<code>record_type</code>=30，江苏联通被叫。进行特征工程时，要注意以江苏联通用户为主键(<code>caller_isdn</code>,<code>called_isdn</code>)，区分<code>record_type</code>分别进行特征工程</p>
 <p>全表共58个字段，主要包含了用户代码（电话号码）、省份和城市信息、通话信息、费用信息、时间信息，但不包含通话时长等信息。分析多日数据可知，平日一日记录数为600万，用户量为约100万。对于用户量100万的表，全部加载到内存中进行分析处理也是可行的。</p>
 <h2 id="roaminglog特征工程"><a href="#roaminglog特征工程" class="headerlink" title="roaminglog特征工程"></a>roaminglog特征工程</h2><p>对<code>roaminglog</code>中的用户，使用分组汇总的方式可以得到较丰富的统计特征：</p>
 <ul>
@@ -81,16 +89,16 @@
 <h2 id="数据探索分析"><a href="#数据探索分析" class="headerlink" title="数据探索分析"></a>数据探索分析</h2><ol>
 <li><p>描述统计量</p>
 <p>一些统计量对于正常和不良号码有较好的区分能力</p>
-<p><img src="assets/imgs/roaminglog_4.png" alt="img"></p>
-<p><img src="assets/imgs/roaminglog_5.png" alt="img"></p>
-<p><img src="assets/imgs/roaminglog_6.png" alt="img"></p>
-<p><img src="assets/imgs/roaminglog_7.png" alt="img"></p>
-<p><img src="assets/imgs/roaminglog_8.png" alt="img"></p>
+<p><img src="/assets/imgs/roaminglog_4.png" alt="img"></p>
+<p><img src="/assets/imgs/roaminglog_5.png" alt="img"></p>
+<p><img src="/assets/imgs/roaminglog_6.png" alt="img"></p>
+<p><img src="/assets/imgs/roaminglog_7.png" alt="img"></p>
+<p><img src="/assets/imgs/roaminglog_8.png" alt="img"></p>
 </li>
 <li><p>部分字段分布直方图</p>
 <p><img src="assets/imgs/roaminglog_1.png" width="70%" height="70%"></p>
 <p><img src="assets/imgs/roaminglog_2.png" width="70%" height="70%"></p>
-<p><img src="assets/imgs/roaminglog_3.png" alt="img"></p>
+<p><img src="/assets/imgs/roaminglog_3.png" alt="img"></p>
 </li>
 <li><p>特点分析</p>
 <ul>
@@ -105,18 +113,18 @@
 </li>
 <li><p>字段正负样本区分能力分析</p>
 <p>我们查看在大于值域内某阈值的规则下，正负样本的留存比例分布情况，以下是一些区分能力较强的字段分割示意图。</p>
-<p><img src="assets/imgs/roaminglog_9.png" alt="img"></p>
+<p><img src="/assets/imgs/roaminglog_9.png" alt="img"></p>
 </li>
 </ol>
-<p><img src="assets/imgs/roaminglog_10.png" alt="img"></p>
-<p><img src="assets/imgs/roaminglog_11.png" alt="img"></p>
-<p><img src="assets/imgs/roaminglog_12.png" alt="img"></p>
-<p><img src="assets/imgs/roaminglog_13.png" alt="img"></p>
-<p><img src="assets/imgs/roaminglog_14.png" alt="img"></p>
-<p><img src="assets/imgs/roaminglog_15.png" alt="img"></p>
-<p><img src="assets/imgs/roaminglog_16.png" alt="img"></p>
-<p><img src="assets/imgs/roaminglog_17.png" alt="img"></p>
-<p><img src="assets/imgs/roaminglog_18.png" alt="img"></p>
+<p><img src="/assets/imgs/roaminglog_10.png" alt="img"></p>
+<p><img src="/assets/imgs/roaminglog_11.png" alt="img"></p>
+<p><img src="/assets/imgs/roaminglog_12.png" alt="img"></p>
+<p><img src="/assets/imgs/roaminglog_13.png" alt="img"></p>
+<p><img src="/assets/imgs/roaminglog_14.png" alt="img"></p>
+<p><img src="/assets/imgs/roaminglog_15.png" alt="img"></p>
+<p><img src="/assets/imgs/roaminglog_16.png" alt="img"></p>
+<p><img src="/assets/imgs/roaminglog_17.png" alt="img"></p>
+<p><img src="/assets/imgs/roaminglog_18.png" alt="img"></p>
 <p>分析结论：</p>
 <ul>
 <li>号码前缀特征差别较大，正常号码中有非13x号段的</li>
@@ -135,7 +143,7 @@
     <div class="toc-container">
         <h1>目录</h1>
         <div class="content">
-            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#roaminglog表特征数据挖掘"><span class="toc-number">1.</span> <span class="toc-text">roaminglog表特征数据挖掘</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#roaminglog特征工程"><span class="toc-number">1.1.</span> <span class="toc-text">roaminglog特征工程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#数据探索分析"><span class="toc-number">1.2.</span> <span class="toc-text">数据探索分析</span></a></li></ol></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#roaminglog特征工程"><span class="toc-number">1.</span> <span class="toc-text">roaminglog特征工程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#数据探索分析"><span class="toc-number">2.</span> <span class="toc-text">数据探索分析</span></a></li></ol>
         </div>
     </div>
     

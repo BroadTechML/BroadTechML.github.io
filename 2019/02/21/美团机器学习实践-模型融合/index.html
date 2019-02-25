@@ -58,12 +58,20 @@
         <section class="content markdown-body">
           <h1>模型融合</h1>
           <div class="post-meta">
-            <i class="fa fa-calendar" aria-hidden="true"></i> <time>2019/02/22</time>
+            <i class="fa fa-calendar" aria-hidden="true"></i> <time>2019/02/21</time>
             
+            
+              | 
+                  <i class="fa fa-tag" aria-hidden="true"></i>
+                
+               
+  <a href="/tags/#MachineLearning" class="tag">MachineLearning</a>
+
+
             
           </div>
-          <h1 id="模型融合"><a href="#模型融合" class="headerlink" title="模型融合"></a>模型融合</h1><p>模型融合通过构建并融合多个模型来完成学习任务，也称多分类器系统或基于委员会的学习。</p>
-<p><img src="assets/imgs/1541642172900.png" alt="1541642172900"></p>
+          <p>模型融合通过构建并融合多个模型来完成学习任务，也称多分类器系统或基于委员会的学习。</p>
+<p><img src="/assets/imgs/1541642172900.png" alt="img"></p>
 <p>模型融合主要包含两个阶段：构建若干单模型和模型融合。单模型通常由基本的学习算法在训练集上学习得到，也称为基学习器、个体学习器或者组件学习器。如果模型融合使用的单模型属于一类学习算法，称为同质模型融合；反之则称为异质模型融合。模型融合阶段可选择多种融合方法，如平均法、投票法以及学习法等。多个融合模型还可以进行二阶融合甚至多阶融合。通常情况下，融合模型的泛化能力要比单模型强得多。</p>
 <ul>
 <li>融合收益</li>
@@ -71,7 +79,7 @@
 <p>从统计的角度看，机器学习的任务可以视为寻找一个最佳的假设空间。找出多个能够达到同等性能的假设空间，通过融合的方式来平均这些模型的预测结果，可以降低模型预测错误的风险。</p>
 <p>从计算的角度看，许多学习算法采用局部搜索的方式来寻找最佳参数，但是这样很容易陷入局部最优的情况。模型融合可以看作对同一份训练集、从很多不同的起始点进行局部搜索，然后结合起来，可以降低陷入糟糕的局部最优的风险。</p>
 <p>从表示的角度看，理论上理想的学习算法可以表示所有可能的分类，例如神经网络和决策树。但是在实际应用中，能够用于训练的数据是有限的，有些学习任务的真实假设可能不在当前学习算法所考虑到的假设空间中，此时如果使用单模型肯定无效。模型融合可以使假设空间扩大，从而使得这些学习任务可能得到正确的表示。</p>
-<p><img src="assets/imgs/1541655561033.png" alt="1541655561033"></p>
+<p><img src="/assets/imgs/1541655561033.png" alt="img"></p>
 <ul>
 <li>模型误差-分歧分解</li>
 </ul>
@@ -148,7 +156,7 @@
     <div class="toc-container">
         <h1>目录</h1>
         <div class="content">
-            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#模型融合"><span class="toc-number">1.</span> <span class="toc-text">模型融合</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#融合方法"><span class="toc-number">1.1.</span> <span class="toc-text">融合方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#小结"><span class="toc-number">1.2.</span> <span class="toc-text">小结</span></a></li></ol></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#融合方法"><span class="toc-number">1.</span> <span class="toc-text">融合方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#小结"><span class="toc-number">2.</span> <span class="toc-text">小结</span></a></li></ol>
         </div>
     </div>
     
