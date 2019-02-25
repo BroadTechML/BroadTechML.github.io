@@ -64,10 +64,7 @@
         
         <div class="post-content">
           
-            
-              
-                <p><code>roaminglog</code>表记录了江苏联通用户的漫游通话行为，每条记录记录一次通话，其中江苏用户可能是呼叫方，也可能是接听方，通话方向由<code>record_type</code>决定。<code>record_type</code>=20,江苏联通用户主叫，<code>record_type</code>=30，江苏联通被叫。进行特征工程时，要注意以江苏联通用户为主键(<code>caller_isdn</code>,<code>called_isdn</code>)，区分<code>record_type</code>分别进行特征工程</p>
-              
+            roaminglog表特征数据挖掘
           
         </div>
         <div class="post-meta">
@@ -95,10 +92,7 @@
         
         <div class="post-content">
           
-            
-              
-                <p>逻辑回归无法学习到特征间的组合关系，人工对特征组合需要做大量的特征工程工作，暴力组合模型太复杂、参数太多。利用模型来做特征组合，比较常见的是使用支持向量机的核函数来实现特征的交叉。但是多项式核函数的二次参数过多，特征组合后得到的特征矩阵十分稀疏。而在训练样本不足的时候，特征的矩阵的稀疏性很容易导致相关参数准确性较低。可以通过对二次项参数施加某种限制来减少参数的自由度。</p>
-              
+            场感知因子分解机
           
         </div>
         <div class="post-meta">
@@ -126,10 +120,7 @@
         
         <div class="post-content">
           
-            
-              
-                <h2 id="算法原理"><a href="#算法原理" class="headerlink" title="算法原理"></a>算法原理</h2><p>逻辑回归是一种广义线性模型，它与线性回归模型包含的线性函数十分相似。逻辑回归通过对数概率函数将线性函数的结果进行映射，目标函数的取值空间从$(-\infin, +\infin)$映射到了$(0, 1)$,从而可以处理分类问题。</p>
-              
+            对数几率回归（逻辑回归）
           
         </div>
         <div class="post-meta">
@@ -157,10 +148,7 @@
         
         <div class="post-content">
           
-            
-              
-                <p>梯度提升树是一种基于回归树的集成学习方法，它通过构造多个弱的回归树作为基学习器，并把这些树的结果累加起来作为最终的预测输出。</p>
-              
+            梯度提升树
           
         </div>
         <div class="post-meta">
@@ -188,10 +176,7 @@
         
         <div class="post-content">
           
-            
-              
-                <p>模型融合通过构建并融合多个模型来完成学习任务，也称多分类器系统或基于委员会的学习。</p>
-              
+            模型融合
           
         </div>
         <div class="post-meta">
@@ -219,12 +204,9 @@
         
         <div class="post-content">
           
-            
-              
-                <h2 id="特征提取"><a href="#特征提取" class="headerlink" title="特征提取"></a>特征提取</h2><ul>
-              
+            特征工程
           
-        </ul></div>
+        </div>
         <div class="post-meta">
           <i class="fa fa-calendar" aria-hidden="true"></i> <time>2019/02/03</time>
           
@@ -250,10 +232,7 @@
         
         <div class="post-content">
           
-            
-              
-                <p>用户画像这一概念在业界没有明确的定义。用户模型指真实用户的虚拟代表，是在深刻理解真实数据的基础上得出的一个虚拟用户；通过调研去了解用户，根据其目标、行为和观点的差异，将他们分为不同的类型，然后从每种类型中抽取出典型特征，赋予名字、照片、人口统计学要素、场景等描述，就形成了一个用户模型。</p>
-              
+            用户画像
           
         </div>
         <div class="post-meta">
@@ -285,10 +264,7 @@
         
         <div class="post-content">
           
-            
-              
-                <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-              
+            hello world
           
         </div>
         <div class="post-meta">
