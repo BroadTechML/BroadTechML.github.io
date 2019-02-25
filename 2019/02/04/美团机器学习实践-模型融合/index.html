@@ -105,7 +105,7 @@ E(H|x)=(f(x)-H(x))^2</script><p>令</p>
 E_i=\int E(h_i \ | \ x)p(x)dx\\
 A_i=\int A(h_i \ | \ x)p(x)dx</script><p>融合的泛化误差为</p>
 <script type="math/tex; mode=display">
-E = \int E(H|x)p(x)d(x)</script><p>令$\overline E=\sum<em>{i=1}^Tw_iE_i$表示个体学习期泛化误差的加权平均值，$\overline A=\sum</em>{i=1}^Tw_iA_i$表示个体学习器的加权分歧值，则有误差-分歧分解</p>
+E = \int E(H|x)p(x)d(x)</script><p>令$\overline E=\sum_{i=1}^Tw_iE_i$表示个体学习期泛化误差的加权平均值，$\overline A=\sum_{i=1}^Tw_iA_i$表示个体学习器的加权分歧值，则有误差-分歧分解</p>
 <script type="math/tex; mode=display">
 E=\overline E-\overline A</script><p>上式表明单模型准确性越高（泛化误差越小），多样性越大（分歧值越大）则融合模型的表现越好（泛化误差越小）。</p>
 <ul>
@@ -141,7 +141,7 @@ E=\overline E-\overline A</script><p>上式表明单模型准确性越高（泛�
 <p>相关系数：$\rho_{ij}=\frac{ad-bc}{\sqrt{(a+b)(a+c)(c+d)(b+d)}}$</p>
 <p>Q统计：$Q_{ij}=\frac{ad-bc}{ad+bc}$</p>
 <p>K统计：$K=\frac{p_1-p_2}{1-p_2}$，$p_1=\frac{a+d}{m}$,$p_2=\frac{(a+b)(a+c)+(c+d)(b+d)}{m^2}$</p>
-<p>双次失败度量：$df<em>{ij}=\frac{\sum</em>{k=1}^m\prod(h_i(x_k)\ne y_k)\bigwedge h_j(x_k)\ne y_k}{m}$</p>
+<p>双次失败度量：$df_{ij}=\frac{\sum_{k=1}^m\prod(h_i(x_k)\ne y_k)\bigwedge h_j(x_k)\ne y_k}{m}$</p>
 <p>非成对多样性度量主要有以下参数：</p>
 <p>KW差异：$KW=\frac{1}{mT^2}\sum \limits_{k=1}^ml(x_k)(T-l(x_k))$</p>
 <p>$\kappa$度量（或评判一致性度量）：</p>

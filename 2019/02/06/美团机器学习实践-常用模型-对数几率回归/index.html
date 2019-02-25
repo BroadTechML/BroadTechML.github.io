@@ -79,11 +79,11 @@
 <ul>
 <li><p>使用梯度下降对逻辑回归模型进行求解。</p>
 <p>如果$h_0=\frac{1}{1+e^{-\theta^Tx+b}}$，那么可以构造关于$\theta$最大似然概率，即令每个样本属于其真实标记的概率越大越好,:</p>
-<p>$L(\theta) = \prod<em>{i=1}^{m}P(y_i|x_i;\theta)=\prod</em>{i=1}^{m}(h<em>\theta(x))^y(1-h</em>\theta(x))^{1-y}$</p>
+<p>$L(\theta) = \prod_{i=1}^{m}P(y_i|x_i;\theta)=\prod_{i=1}^{m}(h_\theta(x))^y(1-h_\theta(x))^{1-y}$</p>
 <p>要最大化$L(\theta)$，可以先将上式取对数变为求和，然后乘以一个负系数转换为求解最小值的问题：</p>
-<p>$L(\theta)=-\frac{1}{2}\sum<em>{i=1}^{m}[y_ilogh</em>\theta(x<em>i)+(1-y_i)log(1-h</em>\theta(x_i))]$</p>
+<p>$L(\theta)=-\frac{1}{2}\sum_{i=1}^{m}[y_ilogh_\theta(x_i)+(1-y_i)log(1-h_\theta(x_i))]$</p>
 <p>代入梯度下降法求解公式：</p>
-<p>$\theta<em>{j+1}=\theta_j-\alpha\frac{\partial L(\theta)}{\partial \theta}=\theta_j-\alpha\frac{1}{m}\sum</em>{i=1}^{m}x<em>i[h</em>\theta(x_i)-y_i]$</p>
+<p>$\theta_{j+1}=\theta_j-\alpha\frac{\partial L(\theta)}{\partial \theta}=\theta_j-\alpha\frac{1}{m}\sum_{i=1}^{m}x_i[h_\theta(x_i)-y_i]$</p>
 </li>
 <li><p>周志华《机器学习》解法</p>
 <p>考虑线性模型预测值$z=\theta^Tx+b$,要将预测值转换到为0/1类别，可以对预测值应用一个对数几率函数，即</p>
