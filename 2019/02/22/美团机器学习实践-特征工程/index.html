@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="特征工程特征提取 探索性数据分析 数值特征提取  截断 二值化 分桶 缩放 缺失值处理 特征交叉 非线性编码 行统计量   类别特征  自然数编码 独热编码 分层编码 散列编码(HASH编码) 计数编码 计数排名编码 目标编码 类别特征之间交叉组合 类别特征和数值特征之间交叉组合   时间特征  时间基本特征 滞后特征 滑动窗口统计特征 扩展窗口统计   空间特征  数值特征 散列特征   文本特">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://yoursite.com/2019/02/22/美团机器学习实践-特征工程/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="特征工程特征提取 探索性数据分析 数值特征提取  截断 二值化 分桶 缩放 缺失值处理 特征交叉 非线性编码 行统计量   类别特征  自然数编码 独热编码 分层编码 散列编码(HASH编码) 计数编码 计数排名编码 目标编码 类别特征之间交叉组合 类别特征和数值特征之间交叉组合   时间特征  时间基本特征 滞后特征 滑动窗口统计特征 扩展窗口统计   空间特征  数值特征 散列特征   文本特">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-02-22T06:18:20.263Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Hexo">
+<meta name="twitter:description" content="特征工程特征提取 探索性数据分析 数值特征提取  截断 二值化 分桶 缩放 缺失值处理 特征交叉 非线性编码 行统计量   类别特征  自然数编码 独热编码 分层编码 散列编码(HASH编码) 计数编码 计数排名编码 目标编码 类别特征之间交叉组合 类别特征和数值特征之间交叉组合   时间特征  时间基本特征 滞后特征 滑动窗口统计特征 扩展窗口统计   空间特征  数值特征 散列特征   文本特">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-美团机器学习实践-特征工程" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/02/22/美团机器学习实践-特征工程/" class="article-date">
+  <time datetime="2019-02-22T06:16:07.660Z" itemprop="datePublished">2019-02-22</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="特征工程"><a href="#特征工程" class="headerlink" title="特征工程"></a>特征工程</h1><h2 id="特征提取"><a href="#特征提取" class="headerlink" title="特征提取"></a>特征提取</h2><ul>
+<li>探索性数据分析</li>
+<li><p>数值特征提取</p>
+<ul>
+<li>截断</li>
+<li>二值化</li>
+<li>分桶</li>
+<li>缩放</li>
+<li>缺失值处理</li>
+<li>特征交叉</li>
+<li>非线性编码</li>
+<li>行统计量</li>
+</ul>
+</li>
+<li><p>类别特征</p>
+<ul>
+<li>自然数编码</li>
+<li>独热编码</li>
+<li>分层编码</li>
+<li>散列编码(HASH编码)</li>
+<li>计数编码</li>
+<li>计数排名编码</li>
+<li>目标编码</li>
+<li>类别特征之间交叉组合</li>
+<li>类别特征和数值特征之间交叉组合</li>
+</ul>
+</li>
+<li><p>时间特征</p>
+<ul>
+<li>时间基本特征</li>
+<li>滞后特征</li>
+<li>滑动窗口统计特征</li>
+<li>扩展窗口统计</li>
+</ul>
+</li>
+<li><p>空间特征</p>
+<ul>
+<li>数值特征</li>
+<li>散列特征</li>
+</ul>
+</li>
+<li><p>文本特征</p>
+<ul>
+<li>预处理：转化大小写、分词、去除无用字符、提取词根、拼写纠错、词干提取、标点符号编码、文档特征、实体插入和提取、Word2Vec、文本相似性、去除停止词、去除稀有词、TF-IDF、LDA、LSA等</li>
+<li>语料构建</li>
+<li>文本清洗</li>
+<li>分词：词性标注、词形还原和词干提取、文本统计特征、N-Gram模型</li>
+<li>Skip-Gram模型：词集模型、词袋模型、TF-IDF</li>
+<li>余弦相似度</li>
+<li>Jaccard相似度</li>
+<li>Levenshtein（编辑距离）</li>
+<li>隐性语义分析</li>
+<li>Word2Vec</li>
+</ul>
+</li>
+</ul>
+<h2 id="特征选择"><a href="#特征选择" class="headerlink" title="特征选择"></a>特征选择</h2><ul>
+<li>特征过滤</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">graph LR</span><br><span class="line">特征全集--&gt;特征选择</span><br><span class="line">特征选择--&gt;机器学习算法</span><br><span class="line">机器学习算法--&gt;模型效果</span><br></pre></td></tr></table></figure>
+<ul>
+<li>覆盖率</li>
+<li>皮尔森相关系数</li>
+<li>Fisher得分</li>
+<li>假设检验</li>
+<li>互信息（Kullback-Leibler散度、相对熵）</li>
+<li>最小冗余最大相关性</li>
+<li><p>相关特征选择</p>
+</li>
+<li><p>封装方法</p>
+<p>对特征子集训练模型，评估模型优劣来选择特征</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">graph LR</span><br><span class="line">特征全集</span><br><span class="line">subgraph 特征选择</span><br><span class="line">生成特征子集--&gt;机器学习方法</span><br><span class="line">机器学习方法--&gt;生成特征子集</span><br><span class="line">end</span><br><span class="line">模型效果</span><br><span class="line">特征全集--&gt;生成特征子集</span><br><span class="line">机器学习方法--&gt;模型效果</span><br></pre></td></tr></table></figure>
+<ul>
+<li>完全搜索 </li>
+<li>启发式搜索</li>
+<li>随机搜索</li>
+</ul>
+</li>
+<li><p>嵌入方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">graph LR</span><br><span class="line">特征全集</span><br><span class="line">subgraph 特征选择</span><br><span class="line">生成特征子集--&gt;机器学习方法+模型效果</span><br><span class="line">机器学习方法+模型效果--&gt;生成特征子集</span><br><span class="line">end</span><br><span class="line">特征全集--&gt;生成特征子集</span><br></pre></td></tr></table></figure>
+<ul>
+<li>LASSO方法</li>
+</ul>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>特征选择方法</th>
+<th>优点</th>
+<th>缺点</th>
+<th>举例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>过滤方法</td>
+<td>单变量</td>
+<td>速度快<br>可扩展<br>跟机器学习模型独立</td>
+<td>忽略特征之间的关系<br>忽略特征和模型之间的关系</td>
+<td>卡方检验<br>信息增益<br>相关系数</td>
+</tr>
+<tr>
+<td>过滤方法</td>
+<td>多变量</td>
+<td>考虑了特征之间的相关性<br>跟机器学习模型独立<br>计算复杂度优于封装方法</td>
+<td>计算速度和可扩展性低于单变量方法<br>忽略了特征和模型之间的关系</td>
+<td>基于相关性的特征选择(CFS)<br>MBF<br>FCBF</td>
+</tr>
+<tr>
+<td>封装方法</td>
+<td>确定性算法</td>
+<td>简单<br>跟机器学习模型相关<br>考虑特征之间的相互作用<br>计算密集程度低于随机算法</td>
+<td>容易过拟合<br>相比随机算法容易卡在局部最优子集<br>依赖机器学习模型</td>
+<td>序列向前特征选择<br>序列向后特征删减<br>增Q删R</td>
+</tr>
+<tr>
+<td></td>
+<td>随机算法</td>
+<td>不容易达到局部极小点<br>跟机器学习模型相关<br>考虑特征之间的相互作用</td>
+<td>计算密集<br>依赖机器学习模型<br></td>
+<td>模拟退火<br>随机梯度下降<br>基因算法</td>
+</tr>
+<tr>
+<td>嵌入方法</td>
+<td></td>
+<td>与模型相关<br>计算复杂度优于封装方法<br>考虑特征之间的相互作用</td>
+<td>依赖机器学习模型</td>
+<td>决策树、随机森林、梯度提升树<br>SVM<br>LASSO<br></td>
+</tr>
+</tbody>
+</table>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/02/22/美团机器学习实践-特征工程/" data-id="cjsjossik0006ncan9qyubkp6" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2019/02/22/美团机器学习实践-模型融合/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          模型融合
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/02/22/美团机器学习实践-用户画像/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">用户画像</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/02/22/美团机器学习实践-常用模型-场感知因子分解机/">场感知因子分解机</a>
+          </li>
+        
+          <li>
+            <a href="/2019/02/22/美团机器学习实践-常用模型-对数几率回归/">对数几率回归（逻辑回归）</a>
+          </li>
+        
+          <li>
+            <a href="/2019/02/22/美团机器学习实践-常用模型-梯度提升树/">梯度提升树</a>
+          </li>
+        
+          <li>
+            <a href="/2019/02/22/美团机器学习实践-模型融合/">模型融合</a>
+          </li>
+        
+          <li>
+            <a href="/2019/02/22/美团机器学习实践-特征工程/">(no title)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 Broadtech<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
