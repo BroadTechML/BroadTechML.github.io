@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang=zh>
+  <head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="description" content="BroadTech machine learning blog">
+  <meta name="keywords" content="MachineLearning, DeepLearning, BigData">
+  
+    <link rel="icon" href="/img/favicon.ico">
+  
+    
+  <title>Hive的基本使用 | Broadtech</title>
+  <link rel="stylesheet" href="/style.css">
+  <link rel="stylesheet" href="/lib/jquery.fancybox.min.css">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body>
+  <header>
+  <div class="header-container">
+    <a class="logo" href="/">
+      <span>Broadtech</span>
+    </a>
+    <ul class="right-header">
+      
+        <li class="nav-item">
+          
+            <a href="/" class="item-link">首页</a>
+          
+        </li>
+      
+        <li class="nav-item">
+          
+            <a href="/about" class="item-link">关于</a>
+          
+        </li>
+      
+        <li class="nav-item">
+          
+            <a href="/archives" class="item-link">归档</a>
+          
+        </li>
+      
+        <li class="nav-item">
+          
+            <a href="/tags" class="item-link">标签</a>
+          
+        </li>
+      
+    </ul>
+  </div>
+</header>
+
+  <main id="post">
+  <div class="content">
+    <article>
+        <section class="content markdown-body">
+          <h1>Hive的基本使用</h1>
+          <div class="post-meta">
+            <i class="fa fa-calendar" aria-hidden="true"></i> <time>2019/02/27</time>
+            
+            
+              | 
+                  <i class="fa fa-tags" aria-hidden="true"></i>
+                
+               
+  <a href="/tags/#BigData" class="tag">BigData</a>
+
+  <a href="/tags/#Hive" class="tag">Hive</a>
+
+
+            
+          </div>
+          <p>1、    有时期望执行一个或者几个查询，执行结束后，hive CLI立即退出，使用-e</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">hive –e “select * from mytable limit 3”;</span><br></pre></td></tr></table></figure>
+<p>2、    将查询<strong>结果保存</strong>在一个文件中</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">hive –S –e “select * from mytable limit 3” &gt; /tmp/myquery</span><br></pre></td></tr></table></figure>
+<p>3、    Hive中可以使用-f文件名方式执行指定文件中的一个或者多个查询语句。按照惯例，一般把这些Hive查询文件保存为具有.q或者.hql后缀名的文件。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">Hive –f /path/to/file/withqueries.hql</span><br></pre></td></tr></table></figure>
+<p>在Hive shell中用户可以使用source命令来执行一个脚本文件。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">Hive&gt;</span><span class="bash"> <span class="built_in">source</span> /path/to/file/withqueries.hql</span></span><br></pre></td></tr></table></figure>
+<p>4、    用户可以在Hive CIL中执行Hadoop的dfs命令,只需要将hadoop命令中的关键字hadoop去掉，然后以分号结尾就可以了。这种使用hadoop命令的方式实际上比与其等价的在bash shell中执行的hadoop dfs命令要更高效。因为后者每次都会启动一个新的JVM实例，而Hive会在同一个进程中执行这些命令。</p>
+<p>5、    HiveQL和MySQL的差别<br>HiveQL可能和MySQL的方言最接近，但是两者还是存在显著性差异。Hive不支持行级插入操作、更新操作和删除操作。Hive也不支持事物。Hive增加了在Hadoop背景下的可以提供更高性能的扩展，以及一些个性化的扩展，甚至还增加了一些外部程序。</p>
+<p>6、    查看某数据库某张表的详细信息</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">DESCRIBE</span> <span class="keyword">EXTENDED</span> mydb.employees;</span><br></pre></td></tr></table></figure>
+<p>使用FORMATTED关键字替代EXTENDED关键字的话，可以提供更加可读的和长的输出信息。</p>
+<p>7、    外部表</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">EXTERNAL</span> <span class="keyword">TABLE</span> <span class="keyword">IF</span> <span class="keyword">NOT</span> <span class="keyword">EXISTS</span> stocks (…..) <span class="keyword">ROW</span> <span class="keyword">FORMAT</span> <span class="keyword">DELIMITED</span> <span class="keyword">FIELD</span> <span class="keyword">TERMINATED</span> <span class="keyword">BY</span> ‘’,” LOCATION ‘/<span class="keyword">data</span>/stocks’;</span><br></pre></td></tr></table></figure>
+<p>关键字<strong>EXTENAL</strong>告诉Hive这个表是外部的，而后面的LOCATION…子句则用于告诉Hive数据位于哪个路径下。因为表是外部的，所以Hive并非认为其完全拥有这份数据。因此，删除该表并不会删除掉这份数据，不过描述表的元数据信息会被删除掉。</p>
+<p>8、    <strong>分区表</strong>改变了Hive对数据存储的组织方式。如果我们是在myda数据库中创建的这个表，那么对于这个表只会有一个employees目录与之对应：<br>Hdfs://master_server/user/hive/warehouse/mydb.db/employees<br>但是分区后，Hive现在将会创建好可以反映分区结构的子目录，子目录是以分区的字段名为子目录名的。</p>
+<p>9、    向管理表（内部表）中装载数据<br>既然Hive没有行级别的数据插入、数据更新和删除操作，那么往表中装载数据的唯一途径就是使用一种“大量”的数据装载操作。或者通过其他方式仅仅将文件写入到正确的目录下。</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">LOAD</span> <span class="keyword">DATA</span> <span class="keyword">LOCAL</span> INPATH ‘$&#123;env:HOME&#125;/California-employees’ OVERWRITE <span class="keyword">INTO</span> <span class="keyword">TABLE</span> employees <span class="keyword">PARTITION</span> (country = ‘US’,state = ‘CA’)</span><br></pre></td></tr></table></figure>
+<p>如果分区目录不存在的话，这个命令会在先创建分区目录，然后再将数据拷贝到该目录下。如果使用了LOCAL这个关键字，那么这个路径应该为本地文件系统路径。数据将会被拷贝到目标位置。如果省略掉LOCAL关键字，那么这个路径应该是分布式文件系统中的路径。这种情况下，数据是从这个路径转移到目标位置的。</p>
+<p>10、  通过查询语句向表中插入数据<br>INSERT语句允许用户通过查询语句向目标表中插入数据。</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">INSERT</span> OVERWRITE <span class="keyword">TABLE</span> employees <span class="keyword">PARTITION</span> (country = ‘US’,state = ‘<span class="keyword">OR</span>’) <span class="keyword">SELECT</span> * <span class="keyword">FROM</span> staged_employees se <span class="keyword">WHERE</span> se.cnty = ‘US’ <span class="keyword">AND</span> se.st = ‘<span class="keyword">OR</span>’;</span><br></pre></td></tr></table></figure>
+<p>动态分区插入<br>前面所说的语法中还是有个问题，即：如果需要创建非常多的分区，那么用户就需要写非常多的SQL，不过幸运的是，Hive提供了一个动态分区功能，其可以基于查询推断出需要创建的分区名称。</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">INSERT</span> OVERWRITE <span class="keyword">TABLE</span> employees <span class="keyword">PARTITION</span> (country,state) <span class="keyword">SELECT</span> …,se.cnty,se.st <span class="keyword">FROM</span> staged_employees se;</span><br></pre></td></tr></table></figure>
+<p>Hive根据SELECT语句中最后2列来确定分区字段country和state的值。这就是为什么在表stated_employees中我们使用了不同的命名，就是为了强调源表字段值和输出分区值之间的关系是根据位置而不是根据命名来匹配的。<br>用户也可以混合使用动态和静态分区。下例country字段为静态，state为动态，且要求静态分区键必须出现在动态分区键之前</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">INSERT</span> OVERWRITE <span class="keyword">TABLE</span> employees <span class="keyword">PARTITION</span> (country = ‘US’,state) <span class="keyword">SELECT</span> …,se.cnty,se.st <span class="keyword">FROM</span> staged_employees se <span class="keyword">WHERE</span> se.cnty = ‘US’</span><br></pre></td></tr></table></figure>
+<p>11、    单个查询语句中创建表并加载数据<br>用户可以在一个语句中完成创建表并将查询结果载入这个表的操作：</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> ca_employees <span class="keyword">AS</span> <span class="keyword">SELECT</span> <span class="keyword">name</span>,salary,address <span class="keyword">FROM</span> employees <span class="keyword">WHERE</span> se.state = ‘CA’</span><br></pre></td></tr></table></figure>
+<p>12、导出数据<br>如果数据文件恰好是用户需要的格式，那么只需要简单地拷贝文件夹或者文件就可以了：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">hadoop fs –cp source_path target_path</span><br></pre></td></tr></table></figure>
+<p>否则，用户可以使用如下:</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">INSERT</span> OVERWRITE <span class="keyword">LOCAL</span> <span class="keyword">DIRECTORY</span> ‘/tmp/ca_employees’ <span class="keyword">SELECT</span> <span class="keyword">name</span>,salary,address <span class="keyword">FROM</span> employees <span class="keyword">WHERE</span> se.state = ‘CA’</span><br></pre></td></tr></table></figure>
+<p>我们可以在hive CLI中查看导出文件内容</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">Hive&gt;</span><span class="bash"> ! ls /tmp/ca_employees</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">000000_0</span></span><br><span class="line"></span><br><span class="line"><span class="meta">Hive&gt;</span><span class="bash"> ! cat /tmp/ca_employees/000000_0</span></span><br></pre></td></tr></table></figure>
+<p>13、<strong>HAVING</strong>字句允许用户通过一个简单的语法完成原本需要通过子查询才能对GROUP BY语句产生的分组进行条件过滤的任务</p>
+<p>14、笛卡儿积JOIN<br>笛卡儿积是一种连接，表示左边表的行数乘以右边表的行数等于笛卡尔结果集的大小。</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> stocks <span class="keyword">JOIN</span> dividengs;</span><br></pre></td></tr></table></figure>
+<p>如上查询在Hive中就是一个笛卡儿积查询，如果数据大的话，会运行的非常缓慢，这种查询在很多数据库中会被优化成内链接查询，但hive没有这样做。所以一定要谨慎使用。</p>
+<p>15、<strong>map-side JOIN</strong><br>如果所有表中只有一张表是小表，那么可以在最大的表通过mapper的时候将小表完全放到内存中。Hive可以在map端执行连接过程(称为map-side JOIN)，这是因为Hive可以和内存中的小表进行逐一匹配，从而省略掉常规连接操作所需要的reduce过程。即使对于很小的数据集，这个优化也明显地要快于常规操作。其不仅减少了reduce过程，而且有时还可以同时减少map过程的执行步骤。</p>
+<p>16、Hive表联合查询，如何解决数据<strong>倾斜问题</strong><br>倾斜原因：</p>
+<ul>
+<li>1)、key分布不均匀</li>
+<li>2）、业务数据本身的特性</li>
+<li>3）、建表时考虑不周</li>
+<li>4）、某些SQL语句本身就有数据倾斜<br>解决方案：</li>
+<li><p>1、    参数调节：</p>
+<p>  Hive.map.aggr=true<br>  Hive.groupby.skewindata=true<br>有数据倾斜时进行负载均衡，当选项设定为ture，生成的查询计划会有两个MR Job。第一个MR Job中，Map的输出结果会随机分布到Reduce中，每个Reduce做部分聚合操作，并输出结果，这样处理的结果是相同的key有可能被分发到不同的Reduce中，从而达到负载均衡的目的；第二个MR Job再根据预处理的数据结果按照key分不到Reduce中（这个过程可以保证相同的key被分布到同一个Reduce中），最后完成最终的聚合操作。</p>
+</li>
+<li>2、    SQL语句调节<br>1)、选用join key分布最均匀的表作为驱动表。做好列裁剪和filter操作，以达到两表做join的时候，数据量相对变小的效果。<br>2）、大小表Join，使用map join让小的维度表先进入内存。在map端完成reduce<br>3）、大表Join大表，把空值的key变成一个字符串加上随机数，把倾斜的数据分到不同的reduce上，由于null值关联不上，处理后并不影响最终结果。<br>4）、count distinct大量相同特殊值<br>count distinct时，将值为空的情况单独处理，如何是计算count distinct，可以不用处理，直接过滤，在最后结果中家1.如果还有其他计算，需要进行group by，可以先将值为空的记录单独处理，再和其他计算结果进行union</li>
+</ul>
+<p>17、hive的特点是什么，hive和RDMS有什么异同<br>hive是基于hadoop的一个数据仓库工具，可以将结构化的数据库文件映射为一张数据库表，并提供完整的sql查询功能，可以将sql语句转化为MapReduce任务进行运行。其优点是学习成本低，可以通过类SQL语句快速实现简单的MapReduce统计，不必开发专门的MapReduce应用，十分适合数据仓库的统计分析。</p>
+<p>18、请说明hive中Sort By，Order By，Cluster By，Distrbute BY各代表什么意思。<br>order by：会对输入做全局排序，因此只有一个reducer（多个reducer无法保证全局有序。只有一个reducer，会导致当输入规模较大时，需要较长的计算时间。<br>sort by：不是全局排序，其在数据进入reducer前完成排序。<br>distribute by：按照指定的字段对数据进行划分输出到不同的reduce中。<br>Cluster by：除了具有distribute by的功能外还兼具sort by的功能。</p>
+<p>19、写出将 text.txt 文件放入 hive 中 test 表‘2016-10-10’ 分区的语句，test 的分区字段是 l_date。</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">LOAD</span> <span class="keyword">DATA</span> <span class="keyword">LOCAL</span> INPATH <span class="string">'/your/path/test.txt'</span> OVERWRITE <span class="keyword">INTO</span> <span class="keyword">TABLE</span> <span class="keyword">test</span> <span class="keyword">PARTITION</span> (l_date=<span class="string">'2016-10-10'</span>)</span><br></pre></td></tr></table></figure>
+<p>20、配置hive-env.sh都涉及到哪些属性？（中文描述）<br>​    1.添加JAVA_HOME路径     </p>
+<pre><code>JAVA_HOME=/opt/modules/jdk1.7.0_67
+</code></pre><p>​       2.添加HADOOP_HOME路径<br>​<br>​    HADOOP_HOME=/opt/modules/hadoop-2.5.0-cdh5.3.6/<br>​       3.添加HIVE_COF路径   </p>
+<pre><code>export HIVE_CONF_DIR=/opt/modules/hive-0.13.1-cdh5.3.6/conf
+</code></pre><p>21、如何设定Hive产生log日志的目录？<br>1.在hive安装目录下的conf/hive-log4j.properties   (首先要创建mkdir logs)</p>
+<pre><code>hive.log.dir=/opt/modules/hive-0.13.1-cdh5.3.6/logs
+</code></pre><p>22、启动Hive的方式有哪些？</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">1.bin/hive</span><br><span class="line">2.bin/hiveserver2</span><br></pre></td></tr></table></figure>
+<p>23、<strong>HiveServer2</strong>的作用是什么。<br>Hiveserver2作用是允许多台主机通过beeline连接hiveserver2上，在通过hiveserver2连接到hive数据仓库。</p>
+<p>24、如何连接HiveServer2？写出具体命令</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">1.bin/hiveserver2</span><br><span class="line">2.bin/beeline</span><br><span class="line">3.!connect jdbc:hive2://hadoop102:10000</span><br></pre></td></tr></table></figure>
+<p>25、Hive创建id，name，sex表的语法是什么？</p>
+<pre><code> create table student(id int,name String ,sex String)row format delimited fields terminated by &#39;\t&#39;
+</code></pre><p>26、Hive的两个重要参数是什么？<br>​     1.hive -e  ‘’  从命令行执行指定的HQL<br>​     2.hive -f  *.hql  执行hive脚本命令</p>
+<p>27、Hive中如何复制一张表的表结构（不带有被复制表数据）</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> a  <span class="keyword">like</span> b;</span><br></pre></td></tr></table></figure>
+<p>28、Hive中追加<strong>导入数据</strong>的4种方式是什么？请写出简要语法。<br>​     1.从本地导入：</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">load</span> <span class="keyword">data</span> <span class="keyword">local</span>  inpath <span class="string">'/home/1.txt'</span> (overwrite)<span class="keyword">into</span> <span class="keyword">table</span> student;</span><br></pre></td></tr></table></figure>
+<p>​     2.从Hdfs导入：</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">load</span> <span class="keyword">data</span> inpath <span class="string">'/user/hive/warehouse/1.txt'</span>  (overwrite)<span class="keyword">into</span> <span class="keyword">table</span> student;</span><br></pre></td></tr></table></figure>
+<p>​     3.查询导入：  </p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">table</span>  student1 <span class="keyword">as</span> <span class="keyword">select</span> * <span class="keyword">from</span> student;(也可以具体查询某项数据)</span><br></pre></td></tr></table></figure>
+<p>​     4.查询结果导入：</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">insert</span> （overwrite）<span class="keyword">into</span> <span class="keyword">table</span> staff  <span class="keyword">select</span> * <span class="keyword">from</span> track_log;</span><br></pre></td></tr></table></figure>
+<p>29、Hive<strong>导出数据</strong>有几种方式？如何导出数据？</p>
+<ul>
+<li><p>1.用insert overwrite导出方式<br>​       导出到本地：</p>
+<p>  insert overwrite local directory ‘/home/robot/1/2’  rom format delimited fields terminated by ‘\t’ select * from staff;(递归创建目录)<br>​         导出到HDFS</p>
+<p>  insert overwrite  directory ‘/user/hive/1/2’  rom format delimited fields terminated by ‘\t’ select * from staff;</p>
+</li>
+<li><p>2.Bash shell覆盖追加导出</p>
+<p>  $ bin/hive -e “select * from staff;”  &gt; /home/z/backup.log</p>
+</li>
+<li>3.Sqoop把hive数据导出到外部</li>
+</ul>
+<p>30、Hive的架构：<br>​     解释器（翻译器）—————将Hive 语句转换为MapReduce程序<br>​     编译器————————–将转换后的MapReduce程序达成jar包<br>​     优化器————————–提交jar包，执行程序</p>
+<p>31、Hive SQL语句执行原理<br>​     SQL转化为MapReduce的过程</p>
+<ol>
+<li>Antlr定义SQL的语法规则，完成SQL词法，语法解析，将SQL转化为抽象语法树AST Tree（Abstract Syntax Tree）<br>Hive使用Antlr实现SQL的词法和语法解析。Antlr是一种语言识别的工具，可以用来构造领域语言。</li>
+<li>遍历AST Tree，抽象出查询的基本组成单元QueryBlock<br>AST Tree仍然非常复杂，不够结构化，不方便直接翻译为MapReduce程序，AST Tree转化为QueryBlock就是将SQL进一部抽象和结构化；QueryBlock是一条SQL最基本的组成单元，包括三个部分：输入源，计算过程，输出。简单来讲一个QueryBlock就是一个子查询。</li>
+<li>遍历QueryBlock，翻译为执行操作树OperatorTree</li>
+<li>逻辑层优化器进行OperatorTree变换，合并不必要的ReduceSinkOperator，减少shuffle数据量<br>大部分逻辑层优化器通过变换OperatorTree，合并操作符，达到减少MapReduce Job，减少shuffle数据量的目的。</li>
+<li>遍历OperatorTree，翻译为MapReduce任务</li>
+<li>物理层优化器进行MapReduce任务的变换，生成最终的执行计划</li>
+</ol>
+
+        </section>
+    </article>
+    
+        
+  </div>
+  <aside>
+    
+  </aside>
+</main>
+
+
+
+  <footer>
+  <div class="copyright">
+    <div>
+      &copy; 2019 | Powered by <a href="https://hexo.io" target="_blank">Hexo</a>&nbsp
+    </div>
+    <div>
+      Theme by <a href="https://github.com/lewis-geek/hexo-theme-Aath" target="_blank">Aath</a>
+    </div>
+  </div>
+</footer>
+
+
+<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script src="/lib/in-view.min.js"></script>
+<script src="/lib/lodash.min.js"></script>
+<script>
+  var isDown = true
+  var oldY = 0
+  inView.offset(50)
+
+  document.body.addEventListener('touchstart', function(){});
+  
+  window.addEventListener('scroll', _.throttle(e => {
+    var currentY = window.scrollY
+    if((oldY - currentY) < 0) {
+      isDown = true
+    } else {
+      isDown = false
+    }
+    oldY = currentY
+  }, 250))
+
+  $("article img").each(function() {
+      var strA = "<a data-fancybox='gallery' href='" + this.src + "'></a>";
+      $(this).wrapAll(strA);
+  });
+
+  $('.toc-link').each(function() {
+      var href = $(this).attr("href");
+      
+      inView(href).on('exit', () => {
+        if (isDown) {
+          handleActive(href)
+        }
+      })
+
+      inView(href).on('enter', () => {
+        if (!isDown) {
+          handleActive(href)
+        }
+      })
+
+      this.onclick = function(e) {
+        var pos = $(href).offset().top - 10;
+        $("html,body").animate({scrollTop: pos}, 300);
+        setTimeout(() => {
+          handleActive(href)
+        }, 350)
+        return false
+      }
+  })
+
+  function handleActive(href) {
+    document.querySelectorAll('.toc-link').forEach(elm => {
+      elm.classList.remove('active')
+    })
+    document.querySelector(".toc [href='"+ href +"']").classList.add('active')
+  }
+</script>
+<script src="/lib/jquery.fancybox.min.js"></script>
+
+
+</body>
+</html>
